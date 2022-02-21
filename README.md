@@ -39,3 +39,7 @@ replayable --force --last 30
 
 It depends on this pull:
 https://github.com/replayableio/desktop/tree/DEV-98_As-a-developer-I-can-create-a-replay-using-the-CLI_Ian-Jennings
+
+[![iTerm2 - ianjennings@macbook-pro-3:~/Development/cli](https://replayable-dev-ian-mac-m1-16.ngrok.io/replay/62141339205b46dbd91f6e21/gif?share=EaqPOFwYj2aRpKR9BTmxJA)](http://localhost:3001/replay/62141339205b46dbd91f6e21/?share=EaqPOFwYj2aRpKR9BTmxJA)
+
+Watch [iTerm2 - ianjennings@macbook-pro-3:~/Development/cli](http://localhost:3001/replay/62141339205b46dbd91f6e21/?share=EaqPOFwYj2aRpKR9BTmxJA) on Replayable

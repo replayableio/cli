@@ -9,6 +9,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "node-ipc": "^10.1.0"
+    "node-ipc": "^10.1.0",
+    "yargs": "^17.3.1"
   }
 }
