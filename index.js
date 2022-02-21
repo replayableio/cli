@@ -1,4 +1,3 @@
-#!/usr/bin/node
 const args = require("yargs").argv;
 const ipc = require("node-ipc").default;
 
