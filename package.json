@@ -1,6 +1,6 @@
 {
   "name": "replayable",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Fix bugs, close pulls, and update your team with desktop instant replay.",
   "main": "index.js",
   "scripts": {
