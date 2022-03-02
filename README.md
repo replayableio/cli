@@ -5,7 +5,7 @@ This is intended to an npm module installed globally. It allows you to publish a
 This allows you to do cool things like append a 30 second replay to a commit:
 
 ```sh
-gh issue create -w -t "New Issue" -b "$replayable"; replayable --public --format=md --image=gif)"
+gh issue create -w -t "New Issue" -b "$replayable"; replayable --public --format=md --image=gif
 ```
 
 ## Demo
