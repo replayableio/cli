@@ -8,6 +8,12 @@ This allows you to do cool things like append a 30 second replay to a commit:
 gh issue create -w -t "New Issue" -b "$(printf "$replayable"; replayable --public --format=md --image=gif)"
 ```
 
+Or simply?
+
+```sh
+gh issue create -w -t "New Issue" -b "`replayable --public --format=md --image=gif`"
+```
+
 ## Demo
 <a href="https://www.loom.com/share/ea9c2831013a4b5eb996bd47f8178f4e">
   <p>Capture bugs with replayable. - Watch Video</p>
