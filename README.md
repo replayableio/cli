@@ -11,19 +11,19 @@ npm install replayable -g
 # Create a github issue with a 30 second instant replay
 
 ```sh
-gh issue create -w -t "Title" -b "`replayable`"
+gh issue create -w -t "Title" -b `replayable`
 ```
 
 # Create a github pull request with a 30 second instant replay
 
 ```sh
-gh pr create -w -t "Title" -b "`replayable`"
+gh pr create -w -t "Title" -b `replayable`
 ```
 
 # Append a 30 second replay to a commit
 
 ```sh
-git commit -m `replayable`
+git commit -am "commit msg `replayable`"
 ```
 
 ## Demo
