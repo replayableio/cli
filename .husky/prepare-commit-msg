@@ -1,9 +1,0 @@
-#!/bin/bash
-FILE=$1
-MESSAGE=$(cat $FILE)
-REPLAY=[$(replayable)]
-if [[ $REPLAY == "[]" || "$MESSAGE" == "$REPLAY"* ]];then
-  exit 0;
-fi
-
-echo $"$MESSAGE\n\n$REPLAY" > $FILE
