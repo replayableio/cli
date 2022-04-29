@@ -1,5 +1,0 @@
-{
-  "hooks": {
-    "pre-commit": "echo 'commit event detected'"
-  }
-}

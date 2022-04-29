@@ -1,2 +1,9 @@
-#!/bin/sh
-. "$(dirname "$0")/_/husky.sh"
+#!/bin/bash
+FILE=$1
+MESSAGE=$(cat $FILE)
+REPLAY=[$(replayable)]
+if [[ $REPLAY == "[]" || "$MESSAGE" == "$REPLAY"* ]];then
+  exit 0;
+fi
+
+echo "$REPLAY $MESSAGE" > $FILE
