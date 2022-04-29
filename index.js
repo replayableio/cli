@@ -7,7 +7,7 @@ ipc.config.retry = 1500;
 ipc.config.silent = true;
 
 // args:
-// public=anything (boolean) - triggers share
+// private=anything (boolean) - don't expose share link
 // format=(link|md) - return format
 // image=(gif|png) - embedded image format, only if md is true
 
@@ -26,10 +26,10 @@ const gifUrl = function (data) {
 };
 
 const imageUrl = function (data) {
-  if (args.image == "gif") {
-    return gifUrl(data);
-  } else {
+  if (args.image == "png") {
     return pngUrl(data);
+  } else {
+    return gifUrl(data);
   }
 };
 
@@ -38,7 +38,7 @@ const shareLink = function (data) {
 };
 
 const shareQuery = function (data) {
-  return args.public ? `?share=${data.replay.shareKey}` : "";
+  return args.private ? "" : `?share=${data.replay.shareKey}`;
 };
 
 const markdownPreview = function (data) {
@@ -61,10 +61,10 @@ ipc.connectTo("replayable", function () {
     "upload", //any event or message type your server listens for
     function (data) {
       // this is essentially the return value, as this echos to cli
-      if (args.format == "md") {
-        console.log(markdownPreview(data));
-      } else {
+      if (args.format == "link") {
         console.log(shareLink(data));
+      } else {
+        console.log(markdownPreview(data));
       }
 
       process.exit(0);

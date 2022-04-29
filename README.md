@@ -4,13 +4,18 @@ This is intended to an npm module installed globally. It allows you to publish a
 
 ```sh
 npm install replayable -g
-replayable
 ```
 
-This allows you to do cool things like append a 30 second replay to a commit:
+# Create a github issue with a 30 second instant replay
 
 ```sh
-git commit -m "$(printf "My commit message, found here: $replayable-url" ; replayable)"
+gh issue create -w -t "Title" -b "`replayable`"
+```
+
+# Append a 30 second replay to a commit
+
+```sh
+git commit -m `replayable`
 ```
 
 ## Loom
@@ -35,11 +40,5 @@ replayable --force --last 30
 
 ## Notes
 
-[I am squatting the package name](https://www.npmjs.com/package/replayable) for future publish.
-
-It depends on this pull:
-https://github.com/replayableio/desktop/tree/DEV-98_As-a-developer-I-can-create-a-replay-using-the-CLI_Ian-Jennings
-
-[![iTerm2 - ianjennings@macbook-pro-3:~/Development/cli](https://replayable-dev-ian-mac-m1-16.ngrok.io/replay/62141339205b46dbd91f6e21/gif?share=EaqPOFwYj2aRpKR9BTmxJA)](http://localhost:3001/replay/62141339205b46dbd91f6e21/?share=EaqPOFwYj2aRpKR9BTmxJA)
-
-Watch [iTerm2 - ianjennings@macbook-pro-3:~/Development/cli](http://localhost:3001/replay/62141339205b46dbd91f6e21/?share=EaqPOFwYj2aRpKR9BTmxJA) on Replayable
+[![iTerm2 - ianjennings@macbook-pro-3:~/Development/cli](https://replayable-dev-ian-mac-m1-16.ngrok.io/replay/621421b40040b150db91be3e/screenshot?shareKey=QsxUawwTD79Sh4lNdWawA)](http://localhost:3001/replay/621421b40040b150db91be3e/?share=QsxUawwTD79Sh4lNdWawA)
+Watch [iTerm2 - ianjennings@macbook-pro-3:~/Development/cli](http://localhost:3001/replay/621421b40040b150db91be3e/?share=QsxUawwTD79Sh4lNdWawA) on Replayable
