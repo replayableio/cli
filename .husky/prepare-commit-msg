@@ -6,4 +6,4 @@ if [[ $REPLAY == "[]" || "$MESSAGE" == "$REPLAY"* ]];then
   exit 0;
 fi
 
-printf("$MESSAGE $REPLAY") > $FILE
+echo -$"$MESSAGE\n\n$REPLAY" > $FILE
