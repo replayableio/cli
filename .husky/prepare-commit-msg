@@ -6,4 +6,4 @@ if [[ $REPLAY == "[]" || "$MESSAGE" == "$REPLAY"* ]];then
   exit 0;
 fi
 
-echo "$REPLAY $MESSAGE" > $FILE
+echo "$MESSAGE $REPLAY" > $FILE
