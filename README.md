@@ -1,6 +1,4 @@
-# Replayable CLI
-
-# Add instant-replay into your developer workflow.
+# Add Desktop Instant Replays to your CLI
 
 First, [install Replayable Desktop](https://replayable.zendesk.com/hc/en-us/articles/4421207018011-Download-Replayable-Desktop). Replayable Desktop records a local 1 hour buffer that you can publish to replayable.io.
 
@@ -8,19 +6,19 @@ First, [install Replayable Desktop](https://replayable.zendesk.com/hc/en-us/arti
 npm install replayable -g
 ```
 
-# Create a github issue with a 30 second instant replay
+## Create a github issue with a 30 second instant replay
 
 ```sh
 gh issue create -w -t "Title" -b "`replayable`"
 ```
 
-# Create a github pull request with a 30 second instant replay
+## Create a github pull request with a 30 second instant replay
 
 ```sh
 gh pr create -w -t "Title" -b "`replayable`"
 ```
 
-# Append a 30 second replay to a commit
+## Append a 30 second replay to a commit
 
 ```sh
 git commit -am "`replayable`"
