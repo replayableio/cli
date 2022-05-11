@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title></title>
+</head>
+<body>
+  <a href="replayable://replay/create" target="_blank">Create Replay</a>
+  <a href="#" onClick="causeError()">Throw an Error</a>
+  <script>
+    window.onerror = function myErrorHandler(errorMsg, url, lineNumber) {
+      console.log('onError', errorMsg)
+      window.location= "replayable://replay/create";
+    }
+
+    causeError = () => {
+      throw new Error("Throw makes it go boom!");
+    }
+    
+  </script>
+</body>
+</html>
