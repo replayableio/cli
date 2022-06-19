@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 const args = require("yargs").argv;
 const ipc = require("node-ipc").default;
+const { execSync } = require("child_process");
 
 ipc.config.id = "hello";
 ipc.config.retry = 1500;
@@ -47,10 +48,24 @@ const markdownPreview = function (data) {
 Watch [${data.replay.title}](${shareLink(data)}) on Replayable`;
 };
 
+const getGitMetaData = function() {
+  try {
+    return {
+      COMMIT_HASH: execSync("git rev-parse HEAD").toString().trim().slice(0, 6),
+      BRANCH_NAME: execSync("git rev-parse --abbrev-ref HEAD").toString().trim(),
+      ORIGIN_URI: execSync("git config --get remote.origin.url").toString().trim(),
+      STASH_LIST: execSync("git stash list").toString().trim(),
+      LOG: execSync("git log").toString().trim(),
+    }
+  } catch (error) {
+    return {};
+  }
+};
+
 ipc.connectTo("replayable", function () {
+  console.log(ipc.of.replayable, 'replayable');
   ipc.of.replayable.on("connect", function () {
-    // console.log("## connected to replayable ##", ipc.config.delay);
-    ipc.of.replayable.emit("create");
+    ipc.of.replayable.emit("create", { git: getGitMetaData() });
   });
 
   ipc.of.replayable.on("disconnect", function () {
