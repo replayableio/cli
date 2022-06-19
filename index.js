@@ -63,7 +63,6 @@ const getGitMetaData = function() {
 };
 
 ipc.connectTo("replayable", function () {
-  console.log(ipc.of.replayable, 'replayable');
   ipc.of.replayable.on("connect", function () {
     ipc.of.replayable.emit("create", { git: getGitMetaData() });
   });
