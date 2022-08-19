@@ -1,8 +1,9 @@
 #!/usr/bin/env node
+
 const args = require("yargs").argv;
 const ipc = require("node-ipc").default;
 
-ipc.config.id = "hello";
+ipc.config.id = "replayable-cli";
 ipc.config.retry = 1500;
 ipc.config.silent = true;
 
@@ -47,27 +48,39 @@ const markdownPreview = function (data) {
 Watch [${data.replay.title}](${shareLink(data)}) on Replayable`;
 };
 
-ipc.connectTo("replayable", function () {
-  ipc.of.replayable.on("connect", function () {
-    // console.log("## connected to replayable ##", ipc.config.delay);
-    ipc.of.replayable.emit("create");
+const createReplay = function () {
+  return new Promise((resolve, reject) => {
+    ipc.connectTo("replayable", function () {
+      ipc.of.replayable.on("connect", function () {
+        // console.log("## connected to replayable ##", ipc.config.delay);
+        ipc.of.replayable.emit("create");
+      });
+
+      ipc.of.replayable.on("disconnect", function () {
+        console.log("disconnected from replayable".notice);
+      });
+
+      ipc.of.replayable.on(
+        "upload", //any event or message type your server listens for
+        function (data) {
+          // this is essentially the return value, as this echos to cli
+          if (args.format == "link") {
+            resolve(shareLink(data));
+          } else {
+            resolve(markdownPreview(data));
+          }
+        }
+      );
+    });
   });
+};
 
-  ipc.of.replayable.on("disconnect", function () {
-    console.log("disconnected from replayable".notice);
-  });
+if (!module.parent) {
+  (async () => {
+    let result = await createReplay();
+    console.log(result);
+    process.exit(0);
+  })();
+}
 
-  ipc.of.replayable.on(
-    "upload", //any event or message type your server listens for
-    function (data) {
-      // this is essentially the return value, as this echos to cli
-      if (args.format == "link") {
-        console.log(shareLink(data));
-      } else {
-        console.log(markdownPreview(data));
-      }
-
-      process.exit(0);
-    }
-  );
-});
+module.exports = { createReplay };
