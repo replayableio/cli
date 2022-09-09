@@ -1,6 +1,6 @@
 {
   "name": "replayable",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "description": "Fix bugs, close pulls, and update your team with desktop instant replay.",
   "main": "index.js",
   "scripts": {
@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "commander": "^9.4.0",
     "husky": "^7.0.4",
     "node-ipc": "^10.1.0",
     "yargs": "^17.3.1"
