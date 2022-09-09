@@ -6,7 +6,7 @@ const ipc = require("node-ipc").default;
 ipc.config.id = "replayable-cli";
 ipc.config.retry = 1500;
 ipc.config.silent = true;
-
+ipc.config.maxRetries = 0;
 // args:
 // private=anything (boolean) - don't expose share link
 // format=(link|md) - return format
@@ -15,7 +15,7 @@ ipc.config.silent = true;
 const pngUrl = function (data) {
   let url = `${data.API_ENDPOINT}/replay/${
     data.replay.id
-  }/screenshot${shareQuery(data)}`;
+    }/screenshot${shareQuery(data)}`;
   return url;
 };
 
@@ -48,37 +48,53 @@ const markdownPreview = function (data) {
 Watch [${data.replay.title}](${shareLink(data)}) on Replayable`;
 };
 
-const createReplay = function () {
+const connectToIpc = function () {
   return new Promise((resolve, reject) => {
-    ipc.connectTo("replayable", function () {
-      ipc.of.replayable.on("connect", function () {
-        // console.log("## connected to replayable ##", ipc.config.delay);
-        ipc.of.replayable.emit("create");
-      });
 
-      ipc.of.replayable.on("disconnect", function () {
-        console.log("disconnected from replayable".notice);
-      });
-
-      ipc.of.replayable.on(
-        "upload", //any event or message type your server listens for
-        function (data) {
-          // this is essentially the return value, as this echos to cli
-          if (args.format == "link") {
-            resolve(shareLink(data));
-          } else {
-            resolve(markdownPreview(data));
-          }
-        }
-      );
+    ipc.connectTo("replayable");
+    ipc.of.replayable.on("connect", resolve)
+    ipc.of.replayable.on("error", (e) => {
+      if (e.code === 'ENOENT') {
+        console.log('Could not connect to Replayable Desktop App. Is it running?')
+        console.log('You may need to download and install the app from https://bit.ly/3erITXJ')
+      }
+    })
+    ipc.of.replayable.on("disconnect", function () {
+      console.log("disconnected from replayable".notice);
     });
   });
+}
+
+const createReplay = function () {
+  return new Promise((resolve, reject) => {
+
+    ipc.of.replayable.on(
+      "upload", //any event or message type your server listens for
+      function (data) {
+        // this is essentially the return value, as this echos to cli
+        if (args.format == "link") {
+          resolve(shareLink(data));
+        } else {
+          resolve(markdownPreview(data));
+        }
+      }
+    );
+
+    ipc.of.replayable.emit("create");
+
+  });
+
 };
 
 if (!module.parent) {
   (async () => {
-    let result = await createReplay();
-    console.log(result);
+    await connectToIpc()
+    try {
+      let result = await createReplay();
+      console.log(result);
+    } catch (e) {
+      console.log('Error: ', e)
+    }
     process.exit(0);
   })();
 }
