@@ -80,7 +80,10 @@ const createReplay = function () {
       }
     );
 
-    ipc.of.replayable.emit("create");
+    ipc.of.replayable.emit("create", {
+      title: 'abc',
+      description: 'xyz\n123'
+    });
 
   });
 
