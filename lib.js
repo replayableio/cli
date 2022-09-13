@@ -5,13 +5,13 @@ ipc.config.retry = 1500;
 ipc.config.silent = true;
 ipc.config.maxRetries = 0;
 
-
 const connectToIpc = function () {
   return new Promise((resolve, reject) => {
 
     ipc.connectTo("replayable");
     ipc.of.replayable.on("connect", resolve)
     ipc.of.replayable.on("error", (e) => {
+
       if (e.code === 'ENOENT') {
         console.log('Could not connect to Replayable Desktop App. Is it running?')
         console.log('You may need to download and install the app from https://bit.ly/3erITXJ')
@@ -82,6 +82,8 @@ Watch [${data.replay.title}](${shareLink(data)}) on Replayable`;
         }
       }
     );
+
+    console.log('emitting create', options.description)
 
     ipc.of.replayable.emit("create", {
       title: options.title,
