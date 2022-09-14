@@ -23,7 +23,7 @@ const connectToIpc = function () {
   });
 }
 
-const createReplay = async function (options) {
+const createReplay = async function (options = {}) {
 
   options.private = options.private || false;
   options.png = options.png || false;

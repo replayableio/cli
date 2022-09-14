@@ -14,7 +14,7 @@ program.showHelpAfterError();
 program.command('create', { isDefault: true })
   .description('Create a replay and output the resulting url or markdown. Will launch desktop app for local editing before publishing.')
   .option('-t, --title <string>', 'Title of the replay. Automatically generated if not supplied.')
-  .option('-b, --body [text]', 'Replay markdown body. This may be piped in.')
+  .option('-d, --description [text]', 'Replay markdown body. This may be piped in.')
   .option('-p, --private', 'Do not expose secret share key in response.')
   .option('--link', 'Return a link instead of markdown.')
   .option('--png', 'Return a static png instead of gif. Only applies if -l is not supplied.')
@@ -22,7 +22,7 @@ program.command('create', { isDefault: true })
 
     try {
 
-      let description = this.opts().body;
+      let description = this.opts().description;
       if (stdin) {
         description = stdin;
       }
