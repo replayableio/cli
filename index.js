@@ -25,9 +25,9 @@ program
   )
   .option(
     "-d, --description [text]",
-    "Replay markdown body. This may be piped in."
+    "Replay markdown body. This may also be piped in: `cat README.md | replayable create`"
   )
-  .option("--md", "Returns a rich markdown link.")
+  .option("--md", "Returns code for a rich markdown image link.")
   .action(async function (str, options) {
     try {
       let description = this.opts().description;
