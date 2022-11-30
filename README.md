@@ -1,6 +1,10 @@
-# Add Desktop Instant Replays
+# Replayable CLI + SDK
 
-This package allows you to programmatically create and embed desktop replays within git commits, pull requests, bug reports, jira tickets, and even within log files.
+Why double-back when you can capture it the first time? Playback and share exactly what happened with Replayable's desktop replay buffer.
+
+This package allows you to control the Replayable desktop application from the CLI or SDK.
+
+You can easily embed desktop replays within git commits, pull requests, bug reports, jira tickets, and even within log files.
 
 Desktop replays are a great way to share context behind problems and document the application state within logs, tickets and more.
 
@@ -13,7 +17,7 @@ Desktop replays are a great way to share context behind problems and document th
 
 ### Install Replayable Desktop
 
-First, [install Replayable Desktop](https://replayable.io). Replayable Desktop runs in the background giving you access to a buffer of video.
+First, [install Replayable Desktop](https://replayable.io/?betacode=CLIENTRY). Replayable Desktop runs in the background giving you access to a buffer of video.
 
 ### Install this package
 
@@ -48,13 +52,19 @@ Watch [Replayable - New Replay](https://replayable.io/replay/123?share=xyz) on R
 $ replayable -t "My New Title"
 ```
 
-### Attach the last 100 CLI commands to the replay description
+### Attach the last 20 CLI commands to the replay
 
 ```sh
-$ history -100 | replayable
+$ history -20 | replayable
 ```
 
-### Embed a logfile in the replay description
+### Attach a logfile to the replay
+
+This will attach the mac system log to the replay.
+
+```sh
+$ cat /var/log/system.log | replayable
+```
 
 ## GitHub CLI
 
@@ -96,7 +106,7 @@ setTimeout(() => {
 }, 3000);
 ```
 
-## Web Protocol
+## Javascript Integration
 
 Note that this example does not require any library to be installed as the app exposes the protocol natively.
 

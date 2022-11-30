@@ -1,4 +1,5 @@
 const ipc = require("node-ipc").default;
+const clc = require("cli-color");
 
 ipc.config.id = "replayable-cli";
 ipc.config.retry = 1500;
@@ -12,15 +13,17 @@ const connectToIpc = function () {
     ipc.of.replayable.on("error", (e) => {
       if (e.code === "ENOENT") {
         console.log(
-          "Could not connect to Replayable Desktop App. Is it running?"
+          clc.red("Could not connect to Replayable Desktop App. Is it running?")
         );
         console.log(
-          "You may need to download and install the app from https://bit.ly/3erITXJ"
+          clc.yellow(
+            "You may need to download and install the app from https://bit.ly/3ipoQLJ"
+          )
         );
       }
     });
     ipc.of.replayable.on("disconnect", function () {
-      console.log("Disconnected from replayable".notice);
+      console.log("Disconnected from Replayable");
     });
   });
 };
