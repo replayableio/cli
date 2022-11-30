@@ -1,3 +1,5 @@
+
+
 # Replayable CLI + SDK
 
 Why double-back when you can capture it the first time? Playback and share exactly what happened with Replayable's desktop replay buffer.
@@ -74,6 +76,12 @@ The following examples depend on having the [GitHub CLI](https://cli.github.com/
 
 ```sh
 $ gh issue create -w -t "Title" -b "`replayable --md`"
+```
+
+This is where it gets really cool. For example, this single command will create a GitHub issue with a video replay and the mac system logs.
+
+```
+gh issue create -w -t "Title" -b "`cat /var/log/system.log | replayable --md`"
 ```
 
 ### Create a github pull request with a replay in the description
