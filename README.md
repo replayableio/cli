@@ -1,6 +1,6 @@
+<img src="https://user-images.githubusercontent.com/318295/204898620-922afee0-5415-46a9-a84f-ae6237001bf0.png" height="50" alt="Replayable"/>
 
-
-# Replayable CLI + SDK
+# CLI + SDK
 
 Why double-back when you can capture it the first time? Playback and share exactly what happened with Replayable's desktop replay buffer.
 
