@@ -1,51 +1,139 @@
-# Add Desktop Instant Replays to your CLI
+# Replayable CLI + SDK
 
-First, [install Replayable Desktop](https://replayable.zendesk.com/hc/en-us/articles/4421207018011-Download-Replayable-Desktop). Replayable Desktop records a local 1 hour buffer that you can publish to replayable.io.
+Why double-back when you can capture it the first time? Playback and share exactly what happened with Replayable's desktop replay buffer.
 
-```sh
-npm install replayable -g
-```
+This package allows you to control the Replayable desktop application from the CLI or SDK.
 
-## Create a github issue with a 30 second instant replay
+You can easily embed desktop replays within git commits, pull requests, bug reports, jira tickets, and even within log files.
 
-```sh
-gh issue create -w -t "Title" -b "`replayable`"
-```
-
-## Create a github pull request with a 30 second instant replay
-
-```sh
-gh pr create -w -t "Title" -b "`replayable`"
-```
-
-## Append a 30 second replay to a commit
-
-```sh
-git commit -am "`replayable`"
-```
-
-## Demo
+Desktop replays are a great way to share context behind problems and document the application state within logs, tickets and more.
 
 <a href="https://www.loom.com/share/ea9c2831013a4b5eb996bd47f8178f4e">
   <p>Capture bugs with replayable. - Watch Video</p>
   <img style="max-width:300px;" src="https://cdn.loom.com/sessions/thumbnails/ea9c2831013a4b5eb996bd47f8178f4e-with-play.gif">
 </a>
 
-# Usage
+## Quick Setup
+
+### Install Replayable Desktop
+
+First, [install Replayable Desktop](https://replayable.io/?betacode=CLIENTRY). Replayable Desktop runs in the background giving you access to a buffer of video.
+
+### Install this package
 
 ```sh
 npm install replayable -g
-replayable
 ```
 
-## Options
+# Examples
+
+## CLI
+
+### Create a Replay
+
+```sh
+$ replayable
+https://replayable.io/replay/123?share=xyz
+```
+
+### Return a rich markdown link
+
+```sh
+$ replayable --md
+
+[![Replayable - New Replay](https://replayable-api-production.herokuapp.com/replay/123/gif?shareKey=xyz)](https://replayable.io/replay/123?share=xyz)
+
+Watch [Replayable - New Replay](https://replayable.io/replay/123?share=xyz) on Replayable
+```
+
+### Set a replay title
+
+```sh
+$ replayable -t "My New Title"
+```
+
+### Attach the last 20 CLI commands to the replay
+
+```sh
+$ history -20 | replayable
+```
+
+### Attach a logfile to the replay
+
+This will attach the mac system log to the replay.
+
+```sh
+$ cat /var/log/system.log | replayable
+```
+
+## GitHub CLI
+
+The following examples depend on having the [GitHub CLI](https://cli.github.com/) installed.
+
+### Create a github issue with a replay in the description
+
+```sh
+$ gh issue create -w -t "Title" -b "`replayable --md`"
+```
+
+### Create a github pull request with a replay in the description
+
+```sh
+$ gh pr create -w -t "Title" -b "`replayable --md`"
+```
+
+### Append a 30 second replay to a commit
+
+```sh
+$ git commit -am "`replayable`"
+```
+
+## NodeJS SDK
+
+```js
+const replayable = require("replayable");
+
+process.on("uncaughtException", async (err) => {
+  let replay = await replayable.createReplay({
+    title: "uncaughtException",
+    description: err,
+  });
+  console.log("Replayable", replay);
+});
+
+setTimeout(() => {
+  throw new Error("Throw makes it go boom!");
+}, 3000);
+```
+
+## Javascript Integration
+
+Note that this example does not require any library to be installed as the app exposes the protocol natively.
+
+```js
+window.onerror = function myErrorHandler() {
+  window.open("replayable://replay/create", "_blank");
+};
+
+setTimeout(() => {
+  throw new Error("Throw makes it go boom!");
+}, 3000);
+```
+
+# Advanced Usage
 
 ```
---public (boolean) - triggers share
---format=(link|md) - returns a link or markdown
---image=(gif|png) - determines screenshot format (only if --format=md)
+Usage: replayable create [options]
+
+Create a replay and output the resulting url or markdown. Will launch desktop app for local editing before publishing.
+
+Options:
+  -t, --title <string>      Title of the replay. Automatically generated if not supplied.
+  -d, --description [text]  Replay markdown body. This may also be piped in: `cat README.md | replayable create`
+  --md                      Returns code for a rich markdown image link.
+  -h, --help                display help for command
 ```
 
-## Git Hook
+## Ideas
 
 It would be possible to string this along in [a git hook](https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks) to publish with every commit.
