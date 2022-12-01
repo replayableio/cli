@@ -49,8 +49,10 @@ const createReplay = async function (options = {}) {
     );
 
     setTimeout(() => {
-      reject("timeout");
-    }, 60000);
+      reject(
+        "Replayable Desktop App did not respond in time. Did you publish a replay?"
+      );
+    }, 60000 * 5);
 
     ipc.of.replayable.emit("create", {
       title: options.title,
