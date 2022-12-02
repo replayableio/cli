@@ -8,9 +8,34 @@ Add Replayable to your app or workflow. This package allows you to control the R
 
 You can easily embed desktop replays within git commits, pull requests, bug reports, jira tickets, and even within log files. Desktop replays are a great way to share context behind problems and document the application state within logs, tickets and more.
 
-### Install Replayable Desktop
+Requires that you [install Replayable Desktop](https://replayable.io). Replayable Desktop runs in the background giving you access to a buffer of video.
 
-First, [install Replayable Desktop](https://replayable.io/?betacode=CLIENTRY). Replayable Desktop runs in the background giving you access to a buffer of video.
+## Table of contents
+
+- [Replayable API](#replayable-api)
+    - [Install Replayable Desktop](#install-replayable-desktop)
+- [Examples](#examples)
+  - [Web](#web)
+    - [Setup](#setup)
+    - [HTML Anchor Tag](#html-anchor-tag)
+    - [JS Error Handler](#js-error-handler)
+  - [NodeJS SDK](#nodejs-sdk)
+    - [Setup](#setup)
+    - [Create a Replay](#create-a-replay)
+    - [Error Handler](#error-handler)
+  - [CLI](#cli)
+    - [Setup](#setup)
+    - [Create a Replay](#create-a-replay)
+    - [Return a rich markdown link](#return-a-rich-markdown-link)
+    - [Set a replay title](#set-a-replay-title)
+    - [Attach the last 20 CLI commands to the replay](#attach-the-last-20-cli-commands-to-the-replay)
+    - [Attach a logfile to the replay](#attach-a-logfile-to-the-replay)
+  - [GitHub CLI](#github-cli)
+    - [Create a github issue with a replay in the description](#create-a-github-issue-with-a-replay-in-the-description)
+    - [Create a github pull request with a replay in the description](#create-a-github-pull-request-with-a-replay-in-the-description)
+    - [Append a 30 second replay to a commit](#append-a-30-second-replay-to-a-commit)
+- [Advanced Usage](#advanced-usage)
+  - [Ideas](#ideas)
 
 # Examples
 
