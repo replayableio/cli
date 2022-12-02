@@ -40,7 +40,7 @@ npm install replayable -g
 
 # Examples
 
-Also see the examples folder.
+Also see [the examples folder](https://github.com/replayableio/cli/tree/main/examples).
 
 ## CLI
 
