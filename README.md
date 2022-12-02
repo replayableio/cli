@@ -33,8 +33,9 @@ npm install replayable -g
   - [Quick Setup](#quick-setup)
     - [Install Replayable Desktop](#install-replayable-desktop)
     - [Install this package](#install-this-package)
-- [Table of contents](#table-of-contents)
 - [Examples](#examples)
+  - [NodeJS SDK](#nodejs-sdk)
+  - [Javascript Integration](#javascript-integration)
   - [CLI](#cli)
     - [Create a Replay](#create-a-replay)
     - [Return a rich markdown link](#return-a-rich-markdown-link)
@@ -45,14 +46,44 @@ npm install replayable -g
     - [Create a github issue with a replay in the description](#create-a-github-issue-with-a-replay-in-the-description)
     - [Create a github pull request with a replay in the description](#create-a-github-pull-request-with-a-replay-in-the-description)
     - [Append a 30 second replay to a commit](#append-a-30-second-replay-to-a-commit)
-  - [NodeJS SDK](#nodejs-sdk)
-  - [Javascript Integration](#javascript-integration)
 - [Advanced Usage](#advanced-usage)
   - [Ideas](#ideas)
 
 # Examples
 
 Also see [the examples folder](https://github.com/replayableio/cli/tree/main/examples).
+
+## NodeJS SDK
+
+```js
+const replayable = require("replayable");
+
+process.on("uncaughtException", async (err) => {
+  let replay = await replayable.createReplay({
+    title: "uncaughtException",
+    description: err,
+  });
+  console.log("Replayable", replay);
+});
+
+setTimeout(() => {
+  throw new Error("Throw makes it go boom!");
+}, 3000);
+```
+
+## Javascript Integration
+
+Note that this example does not require any library to be installed as the app exposes the protocol natively.
+
+```js
+window.onerror = function myErrorHandler() {
+  window.open("replayable://replay/create", "_blank");
+};
+
+setTimeout(() => {
+  throw new Error("Throw makes it go boom!");
+}, 3000);
+```
 
 ## CLI
 
@@ -119,38 +150,6 @@ $ gh pr create -w -t "Title" -b "`replayable --md`"
 
 ```sh
 $ git commit -am "`replayable`"
-```
-
-## NodeJS SDK
-
-```js
-const replayable = require("replayable");
-
-process.on("uncaughtException", async (err) => {
-  let replay = await replayable.createReplay({
-    title: "uncaughtException",
-    description: err,
-  });
-  console.log("Replayable", replay);
-});
-
-setTimeout(() => {
-  throw new Error("Throw makes it go boom!");
-}, 3000);
-```
-
-## Javascript Integration
-
-Note that this example does not require any library to be installed as the app exposes the protocol natively.
-
-```js
-window.onerror = function myErrorHandler() {
-  window.open("replayable://replay/create", "_blank");
-};
-
-setTimeout(() => {
-  throw new Error("Throw makes it go boom!");
-}, 3000);
 ```
 
 # Advanced Usage
