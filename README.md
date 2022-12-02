@@ -36,8 +36,7 @@ npm install replayable -g
   - [NodeJS SDK](#nodejs-sdk)
   - [Javascript Integration](#javascript-integration)
 - [Advanced Usage](#advanced-usage)
-  - [Ideas](#ideas)
-  - 
+
 # Examples
 
 ## CLI
