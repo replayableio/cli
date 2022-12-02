@@ -31,12 +31,24 @@ npm install replayable -g
 
 - [CLI + SDK](#cli--sdk)
   - [Quick Setup](#quick-setup)
+    - [Install Replayable Desktop](#install-replayable-desktop)
+    - [Install this package](#install-this-package)
+- [Table of contents](#table-of-contents)
 - [Examples](#examples)
   - [CLI](#cli)
+    - [Create a Replay](#create-a-replay)
+    - [Return a rich markdown link](#return-a-rich-markdown-link)
+    - [Set a replay title](#set-a-replay-title)
+    - [Attach the last 20 CLI commands to the replay](#attach-the-last-20-cli-commands-to-the-replay)
+    - [Attach a logfile to the replay](#attach-a-logfile-to-the-replay)
   - [GitHub CLI](#github-cli)
+    - [Create a github issue with a replay in the description](#create-a-github-issue-with-a-replay-in-the-description)
+    - [Create a github pull request with a replay in the description](#create-a-github-pull-request-with-a-replay-in-the-description)
+    - [Append a 30 second replay to a commit](#append-a-30-second-replay-to-a-commit)
   - [NodeJS SDK](#nodejs-sdk)
   - [Javascript Integration](#javascript-integration)
 - [Advanced Usage](#advanced-usage)
+  - [Ideas](#ideas)
 
 # Examples
 
