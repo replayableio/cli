@@ -1,19 +1,12 @@
 <img src="https://user-images.githubusercontent.com/318295/204898620-922afee0-5415-46a9-a84f-ae6237001bf0.png" height="50" alt="Replayable"/>
 
-# CLI + SDK
+# Replayable API
 
-Why double-back when you can capture it the first time? Playback and share exactly what happened with Replayable's desktop replay buffer.
+Add Replayable to your app or workflow. This package allows you to control the Replayable desktop application from the via CLI SDK.
 
-This package allows you to control the Replayable desktop application from the CLI or SDK.
+> Why double-back when you can capture it the first time? Playback and share exactly what happened with Replayable's desktop replay buffer. 
 
-You can easily embed desktop replays within git commits, pull requests, bug reports, jira tickets, and even within log files.
-
-Desktop replays are a great way to share context behind problems and document the application state within logs, tickets and more.
-
-<a href="https://www.loom.com/share/ea9c2831013a4b5eb996bd47f8178f4e">
-  <p>Capture bugs with replayable. - Watch Video</p>
-  <img style="max-width:300px;" src="https://cdn.loom.com/sessions/thumbnails/ea9c2831013a4b5eb996bd47f8178f4e-with-play.gif">
-</a>
+You can easily embed desktop replays within git commits, pull requests, bug reports, jira tickets, and even within log files. Desktop replays are a great way to share context behind problems and document the application state within logs, tickets and more.
 
 ## Quick Setup
 
@@ -27,31 +20,31 @@ First, [install Replayable Desktop](https://replayable.io/?betacode=CLIENTRY). R
 npm install replayable -g
 ```
 
-# Table of contents
-
-- [CLI + SDK](#cli--sdk)
-  - [Quick Setup](#quick-setup)
-    - [Install Replayable Desktop](#install-replayable-desktop)
-    - [Install this package](#install-this-package)
-- [Examples](#examples)
-  - [NodeJS SDK](#nodejs-sdk)
-  - [Javascript Integration](#javascript-integration)
-  - [CLI](#cli)
-    - [Create a Replay](#create-a-replay)
-    - [Return a rich markdown link](#return-a-rich-markdown-link)
-    - [Set a replay title](#set-a-replay-title)
-    - [Attach the last 20 CLI commands to the replay](#attach-the-last-20-cli-commands-to-the-replay)
-    - [Attach a logfile to the replay](#attach-a-logfile-to-the-replay)
-  - [GitHub CLI](#github-cli)
-    - [Create a github issue with a replay in the description](#create-a-github-issue-with-a-replay-in-the-description)
-    - [Create a github pull request with a replay in the description](#create-a-github-pull-request-with-a-replay-in-the-description)
-    - [Append a 30 second replay to a commit](#append-a-30-second-replay-to-a-commit)
-- [Advanced Usage](#advanced-usage)
-  - [Ideas](#ideas)
-
 # Examples
 
 Also see [the examples folder](https://github.com/replayableio/cli/tree/main/examples).
+
+## Web
+
+Note that this example does not require any installation as the app exposes the protocol to the system natively.
+
+### Anchor Tag
+
+```html
+<a href="replayable://replay/create" target="_blank">Create a Replay</a>
+```
+
+### JS Error Handler
+
+```js
+window.onerror = function myErrorHandler() {
+  window.open("replayable://replay/create", "_blank");
+};
+
+setTimeout(() => {
+  throw new Error("Throw makes it go boom!");
+}, 3000);
+```
 
 ## NodeJS SDK
 
@@ -65,20 +58,6 @@ process.on("uncaughtException", async (err) => {
   });
   console.log("Replayable", replay);
 });
-
-setTimeout(() => {
-  throw new Error("Throw makes it go boom!");
-}, 3000);
-```
-
-## Javascript Integration
-
-Note that this example does not require any library to be installed as the app exposes the protocol natively.
-
-```js
-window.onerror = function myErrorHandler() {
-  window.open("replayable://replay/create", "_blank");
-};
 
 setTimeout(() => {
   throw new Error("Throw makes it go boom!");
