@@ -8,17 +8,9 @@ Add Replayable to your app or workflow. This package allows you to control the R
 
 You can easily embed desktop replays within git commits, pull requests, bug reports, jira tickets, and even within log files. Desktop replays are a great way to share context behind problems and document the application state within logs, tickets and more.
 
-## Quick Setup
-
 ### Install Replayable Desktop
 
 First, [install Replayable Desktop](https://replayable.io/?betacode=CLIENTRY). Replayable Desktop runs in the background giving you access to a buffer of video.
-
-### Install this package
-
-```sh
-npm install replayable -g
-```
 
 # Examples
 
@@ -26,9 +18,11 @@ Also see [the examples folder](https://github.com/replayableio/cli/tree/main/exa
 
 ## Web
 
-Note that this example does not require any installation as the app exposes the protocol to the system natively.
+### Setup
 
-### Anchor Tag
+Nothing! The app exposes the protocol to the system natively via `replayable://`.
+
+### HTML Anchor Tag
 
 ```html
 <a href="replayable://replay/create" target="_blank">Create a Replay</a>
@@ -48,6 +42,25 @@ setTimeout(() => {
 
 ## NodeJS SDK
 
+### Setup
+
+```sh
+npm install replayable
+```
+
+### Create a Replay
+
+```js
+const replayable = require("replayable");
+
+let replay = await replayable.createReplay({
+  title: "My New Replay",
+  description: `This **renders markdown** or plaintext in monospace font.`
+});
+```
+
+### Error Handler
+
 ```js
 const replayable = require("replayable");
 
@@ -65,6 +78,12 @@ setTimeout(() => {
 ```
 
 ## CLI
+
+### Setup
+
+```sh
+npm install replayable -g
+```
 
 ### Create a Replay
 
