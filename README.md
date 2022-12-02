@@ -26,7 +26,18 @@ First, [install Replayable Desktop](https://replayable.io/?betacode=CLIENTRY). R
 ```sh
 npm install replayable -g
 ```
+# Table of contents
 
+- [CLI + SDK](#cli--sdk)
+  - [Quick Setup](#quick-setup)
+- [Examples](#examples)
+  - [CLI](#cli)
+  - [GitHub CLI](#github-cli)
+  - [NodeJS SDK](#nodejs-sdk)
+  - [Javascript Integration](#javascript-integration)
+- [Advanced Usage](#advanced-usage)
+  - [Ideas](#ideas)
+  - 
 # Examples
 
 ## CLI
