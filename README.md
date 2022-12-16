@@ -4,7 +4,7 @@
 
 Add Replayable to your app or workflow. This package allows you to control the Replayable desktop application from the via CLI SDK.
 
-> Why double-back when you can capture it the first time? Playback and share exactly what happened with Replayable's desktop replay buffer. 
+> Why double-back when you can capture it the first time? Playback and share exactly what happened with Replayable's desktop replay buffer.
 
 You can easily embed desktop replays within git commits, pull requests, bug reports, jira tickets, and even within log files. Desktop replays are a great way to share context behind problems and document the application state within logs, tickets and more.
 
@@ -12,17 +12,8 @@ Requires that you [install Replayable Desktop](https://replayable.io). Replayabl
 
 ## Table of contents
 
-- [Replayable API](#replayable-api)
-    - [Install Replayable Desktop](#install-replayable-desktop)
+- [Install Replayable Desktop](https://docs.replayable.io/en/articles/6831420-install-replayable)
 - [Examples](#examples)
-  - [Web](#web)
-    - [Setup](#setup)
-    - [HTML Anchor Tag](#html-anchor-tag)
-    - [JS Error Handler](#js-error-handler)
-  - [NodeJS SDK](#nodejs-sdk)
-    - [Setup](#setup)
-    - [Create a Replay](#create-a-replay)
-    - [Error Handler](#error-handler)
   - [CLI](#cli)
     - [Setup](#setup)
     - [Create a Replay](#create-a-replay)
@@ -40,67 +31,6 @@ Requires that you [install Replayable Desktop](https://replayable.io). Replayabl
 # Examples
 
 Also see [the examples folder](https://github.com/replayableio/cli/tree/main/examples).
-
-## Web
-
-### Setup
-
-Nothing! The app exposes the protocol to the system natively via `replayable://`.
-
-### HTML Anchor Tag
-
-```html
-<a href="replayable://replay/create" target="_blank">Create a Replay</a>
-```
-
-### JS Error Handler
-
-```js
-window.onerror = function myErrorHandler() {
-  window.open("replayable://replay/create", "_blank");
-};
-
-setTimeout(() => {
-  throw new Error("Throw makes it go boom!");
-}, 3000);
-```
-
-## NodeJS SDK
-
-### Setup
-
-```sh
-npm install replayable
-```
-
-### Create a Replay
-
-```js
-const replayable = require("replayable");
-
-let replay = await replayable.createReplay({
-  title: "My New Replay",
-  description: `This **renders markdown** or plaintext in monospace font.`
-});
-```
-
-### Error Handler
-
-```js
-const replayable = require("replayable");
-
-process.on("uncaughtException", async (err) => {
-  let replay = await replayable.createReplay({
-    title: "uncaughtException",
-    description: err,
-  });
-  console.log("Replayable", replay);
-});
-
-setTimeout(() => {
-  throw new Error("Throw makes it go boom!");
-}, 3000);
-```
 
 ## CLI
 
