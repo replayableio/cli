@@ -6,26 +6,24 @@ const { program } = require("commander");
 let stdin = "";
 
 program
-  .name("replayable")
-  .description(
-    "Upgrade your bug reports, pulls, and readmes with clips from local development"
-  )
-  .version("0.0.9");
+  .name("dashcam")
+  .description("Capture the steps to reproduce every bug.")
+  .version("0.1.0");
 
 program.showHelpAfterError();
 
 program
   .command("create", { isDefault: true })
   .description(
-    "Create a replay and output the resulting url or markdown. Will launch desktop app for local editing before publishing."
+    "Create a clip and output the resulting url or markdown. Will launch desktop app for local editing before publishing."
   )
   .option(
     "-t, --title <string>",
-    "Title of the replay. Automatically generated if not supplied."
+    "Title of the clip. Automatically generated if not supplied."
   )
   .option(
     "-d, --description [text]",
-    "Replay markdown body. This may also be piped in: `cat README.md | replayable create`"
+    "Markdown body. This may also be piped in: `cat README.md | dashcam create`"
   )
   .option("--md", "Returns code for a rich markdown image link.")
   .action(async function (str, options) {
