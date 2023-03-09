@@ -1,19 +1,19 @@
-<img src="https://user-images.githubusercontent.com/318295/204898620-922afee0-5415-46a9-a84f-ae6237001bf0.png" height="50" alt="Replayable"/>
+<img src="https://user-images.githubusercontent.com/318295/204898620-922afee0-5415-46a9-a84f-ae6237001bf0.png" height="50" alt="Dashcam"/>
 
-# Replayable API
+# Dashcam API
 
-Add Replayable to your app or workflow. This package allows you to control the Replayable desktop application from the via CLI SDK.
+Add Dashcam to your app or workflow. This package allows you to control the Dashcam desktop application from the via CLI SDK.
 
-> Why double-back when you can capture it the first time? Playback and share exactly what happened with Replayable's desktop replay buffer. 
+> Why double-back when you can capture it the first time? Playback and share exactly what happened with Dashcam's desktop replay buffer.
 
 You can easily embed desktop replays within git commits, pull requests, bug reports, jira tickets, and even within log files. Desktop replays are a great way to share context behind problems and document the application state within logs, tickets and more.
 
-Requires that you [install Replayable Desktop](https://replayable.io). Replayable Desktop runs in the background giving you access to a buffer of video.
+Requires that you [install Dashcam Desktop](https://dashcam.io). Dashcam Desktop runs in the background giving you access to a buffer of video.
 
 ## Table of contents
 
-- [Replayable API](#replayable-api)
-    - [Install Replayable Desktop](#install-replayable-desktop)
+- [Dashcam API](#dashcam-api)
+  - [Install Dashcam Desktop](#install-dashcam-desktop)
 - [Examples](#examples)
   - [Web](#web)
     - [Setup](#setup)
@@ -45,19 +45,19 @@ Also see [the examples folder](https://github.com/replayableio/cli/tree/main/exa
 
 ### Setup
 
-Nothing! The app exposes the protocol to the system natively via `replayable://`.
+Nothing! The app exposes the protocol to the system natively via `dashcam://`.
 
 ### HTML Anchor Tag
 
 ```html
-<a href="replayable://replay/create" target="_blank">Create a Replay</a>
+<a href="dashcam://replay/create" target="_blank">Create a Replay</a>
 ```
 
 ### JS Error Handler
 
 ```js
 window.onerror = function myErrorHandler() {
-  window.open("replayable://replay/create", "_blank");
+  window.open("dashcam://replay/create", "_blank");
 };
 
 setTimeout(() => {
@@ -70,31 +70,31 @@ setTimeout(() => {
 ### Setup
 
 ```sh
-npm install replayable
+npm install dashcam
 ```
 
 ### Create a Replay
 
 ```js
-const replayable = require("replayable");
+const dashcam = require("dashcam");
 
-let replay = await replayable.createReplay({
+let replay = await dashcam.createReplay({
   title: "My New Replay",
-  description: `This **renders markdown** or plaintext in monospace font.`
+  description: `This **renders markdown** or plaintext in monospace font.`,
 });
 ```
 
 ### Error Handler
 
 ```js
-const replayable = require("replayable");
+const dashcam = require("dashcam");
 
 process.on("uncaughtException", async (err) => {
-  let replay = await replayable.createReplay({
+  let replay = await dashcam.createReplay({
     title: "uncaughtException",
     description: err,
   });
-  console.log("Replayable", replay);
+  console.log("Dashcam", replay);
 });
 
 setTimeout(() => {
@@ -107,36 +107,36 @@ setTimeout(() => {
 ### Setup
 
 ```sh
-npm install replayable -g
+npm install dashcam -g
 ```
 
 ### Create a Replay
 
 ```sh
-$ replayable
-https://replayable.io/replay/123?share=xyz
+$ dashcam
+https://dashcam.io/replay/123?share=xyz
 ```
 
 ### Return a rich markdown link
 
 ```sh
-$ replayable --md
+$ dashcam --md
 
-[![Replayable - New Replay](https://replayable-api-production.herokuapp.com/replay/123/gif?shareKey=xyz)](https://replayable.io/replay/123?share=xyz)
+[![Dashcam - New Replay](https://replayable-api-production.herokuapp.com/replay/123/gif?shareKey=xyz)](https://replayable.io/replay/123?share=xyz)
 
-Watch [Replayable - New Replay](https://replayable.io/replay/123?share=xyz) on Replayable
+Watch [Dashcam - New Replay](https://dashcam.io/replay/123?share=xyz) on Dashcam
 ```
 
 ### Set a replay title
 
 ```sh
-$ replayable -t "My New Title"
+$ dashcam -t "My New Title"
 ```
 
 ### Attach the last 20 CLI commands to the replay
 
 ```sh
-$ history -20 | replayable
+$ history -20 | dashcam
 ```
 
 ### Attach a logfile to the replay
@@ -144,7 +144,7 @@ $ history -20 | replayable
 This will attach the mac system log to the replay.
 
 ```sh
-$ cat /var/log/system.log | replayable
+$ cat /var/log/system.log | dashcam
 ```
 
 ## GitHub CLI
@@ -154,37 +154,37 @@ The following examples depend on having the [GitHub CLI](https://cli.github.com/
 ### Create a github issue with a replay in the description
 
 ```sh
-$ gh issue create -w -t "Title" -b "`replayable --md`"
+$ gh issue create -w -t "Title" -b "`dashcam --md`"
 ```
 
 This is where it gets really cool. For example, this single command will create a GitHub issue with a video replay and the mac system logs.
 
 ```
-gh issue create -w -t "Title" -b "`cat /var/log/system.log | replayable --md`"
+gh issue create -w -t "Title" -b "`cat /var/log/system.log | dashcam --md`"
 ```
 
 ### Create a github pull request with a replay in the description
 
 ```sh
-$ gh pr create -w -t "Title" -b "`replayable --md`"
+$ gh pr create -w -t "Title" -b "`dashcam --md`"
 ```
 
 ### Append a 30 second replay to a commit
 
 ```sh
-$ git commit -am "`replayable`"
+$ git commit -am "`dashcam`"
 ```
 
 # Advanced Usage
 
 ```
-Usage: replayable create [options]
+Usage: dashcam create [options]
 
 Create a replay and output the resulting url or markdown. Will launch desktop app for local editing before publishing.
 
 Options:
   -t, --title <string>      Title of the replay. Automatically generated if not supplied.
-  -d, --description [text]  Replay markdown body. This may also be piped in: `cat README.md | replayable create`
+  -d, --description [text]  Replay markdown body. This may also be piped in: `cat README.md | dashcam create`
   --md                      Returns code for a rich markdown image link.
   -h, --help                display help for command
 ```
