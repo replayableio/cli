@@ -1,6 +1,6 @@
 {
   "name": "dashcam",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Fix bugs, close pulls, and update your team with desktop instant replay.",
   "main": "index.js",
   "scripts": {

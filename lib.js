@@ -1,19 +1,19 @@
 const ipc = require("node-ipc").default;
 const clc = require("cli-color");
 
-ipc.config.id = "replayable-cli";
+ipc.config.id = "dashcam-cli";
 ipc.config.retry = 1500;
 ipc.config.silent = true;
 ipc.config.maxRetries = 0;
 
 const connectToIpc = function () {
   return new Promise((resolve, reject) => {
-    ipc.connectTo("replayable");
-    ipc.of.replayable.on("connect", resolve);
-    ipc.of.replayable.on("error", (e) => {
+    ipc.connectTo("dashcam");
+    ipc.of.dashcam.on("connect", resolve);
+    ipc.of.dashcam.on("error", (e) => {
       if (e.code === "ENOENT") {
         console.log(
-          clc.red("Could not connect to Replayable Desktop App. Is it running?")
+          clc.red("Could not connect to Dashcam Desktop App. Is it running?")
         );
         console.log(
           clc.yellow(
@@ -22,8 +22,8 @@ const connectToIpc = function () {
         );
       }
     });
-    ipc.of.replayable.on("disconnect", function () {
-      console.log("Disconnected from Replayable");
+    ipc.of.dashcam.on("disconnect", function () {
+      console.log("Disconnected from Dashcam");
     });
   });
 };
@@ -37,7 +37,7 @@ const createReplay = async function (options = {}) {
   await connectToIpc();
 
   return new Promise(async (resolve, reject) => {
-    ipc.of.replayable.on(
+    ipc.of.dashcam.on(
       "upload", //any event or message type your server listens for
       function (data) {
         if (options.md) {
@@ -50,11 +50,11 @@ const createReplay = async function (options = {}) {
 
     setTimeout(() => {
       reject(
-        "Replayable Desktop App did not respond in time. Did you publish a replay?"
+        "Dashcam Desktop App did not respond in time. Did you publish a replay?"
       );
     }, 60000 * 5);
 
-    ipc.of.replayable.emit("create", {
+    ipc.of.dashcam.emit("create", {
       title: options.title,
       description: options.description,
     });
