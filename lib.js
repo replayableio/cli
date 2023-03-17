@@ -50,7 +50,7 @@ const createReplay = async function (options = {}) {
 
     setTimeout(() => {
       reject(
-        "Dashcam Desktop App did not respond in time. Did you publish a replay?"
+        "Dashcam Desktop App did not respond in time. Did you publish a clip?"
       );
     }, 60000 * 5);
 
