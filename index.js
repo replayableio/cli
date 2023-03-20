@@ -1,6 +1,12 @@
 #!/usr/bin/env node
 
 const lib = require("./lib");
+
+if (module.parent) {
+  module.exports = lib;
+  return;
+}
+
 const { program } = require("commander");
 
 let stdin = "";
@@ -61,8 +67,4 @@ if (process.stdin.isTTY) {
   process.stdin.on("end", function () {
     program.parse(process.argv);
   });
-}
-
-if (module.parent) {
-  module.exports = lib;
 }
