@@ -1,8 +1,8 @@
-const replayable = require("./index");
+const replayable = require("../index");
 
 process.on("uncaughtException", async (err) => {
   console.error(err);
-  let replay = await replayable.createReplay();
+  let replay = await replayable.createReplay({ description: err.stack });
   console.log("Replayable", replay);
 });
 
