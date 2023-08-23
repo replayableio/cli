@@ -57,7 +57,7 @@ program
   });
 
 program
-  .command("terminal")
+  .command("record")
   .description(
     "Start a recording terminal to be included in your dashcam video recording"
   )

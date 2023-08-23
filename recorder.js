@@ -29,6 +29,7 @@ class Recorder {
       "This session is being recorded by Dashcam and dumped to",
       this.#logFile
     );
+    console.log("Type `exit` to stop recording");
 
     // TODO: Find a way to consistently get the current shell this is running from
     // instead of using the default user shell (Maybe use parent processId to find
