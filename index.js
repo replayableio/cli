@@ -1,6 +1,9 @@
 #!/usr/bin/env node
 
+const fs = require("fs");
+const crypto = require("crypto");
 const lib = require("./lib");
+const Recorder = require("./recorder");
 
 if (module.parent) {
   module.exports = lib;
@@ -51,6 +54,26 @@ program
       console.log("Error: ", e);
     }
     process.exit(0);
+  });
+
+program
+  .command("record")
+  .description(
+    "Start a recording terminal to be included in your dashcam video recording"
+  )
+  .action(async function (str, options) {
+    try {
+      const dashcam = new lib.PersistantDashcamIPC();
+      const id = crypto.randomUUID();
+      const logFile = lib.getLogFilePath(id);
+
+      dashcam.onConnected = () => dashcam.emit("track-cli", logFile);
+      fs.appendFileSync(logFile, "");
+      const recorder = new Recorder(logFile);
+      recorder.start();
+    } catch (e) {
+      console.log("Error: ", e);
+    }
   });
 
 if (process.stdin.isTTY) {

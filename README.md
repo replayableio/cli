@@ -15,6 +15,7 @@ Requires that you [install Dashcam Desktop](https://dashcam.io). Dashcam Desktop
 - [Dashcam API](#dashcam-api)
   - [Install Dashcam Desktop](#install-dashcam-desktop)
 - [Examples](#examples)
+  - [CLI](#cli)
   - [Web](#web)
     - [Setup](#setup)
     - [HTML Anchor Tag](#html-anchor-tag)
@@ -40,6 +41,20 @@ Requires that you [install Dashcam Desktop](https://dashcam.io). Dashcam Desktop
 # Examples
 
 Also see [the examples folder](https://github.com/replayableio/cli/tree/main/examples).
+
+## CLI
+
+To record the CLI in the Dashcam app, use the following command
+
+```
+dashcam record
+```
+
+Anything you type in your terminal will appear in your dash. To exit, simply type `exit`.
+
+```
+exit
+```
 
 ## Web
 

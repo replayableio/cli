@@ -1,10 +1,16 @@
-const ipc = require("node-ipc").default;
+const os = require("os");
+const path = require("path");
 const clc = require("cli-color");
+const ipc = require("node-ipc").default;
 
 ipc.config.id = "dashcam-cli";
 ipc.config.retry = 1500;
 ipc.config.silent = true;
 ipc.config.maxRetries = 0;
+
+const persistantIPC = new ipc.IPC();
+persistantIPC.config.retry = 500;
+persistantIPC.config.silent = true;
 
 const connectToIpc = function () {
   return new Promise((resolve, reject) => {
@@ -61,4 +67,42 @@ const createReplay = async function (options = {}) {
   });
 };
 
-module.exports = { createReplay };
+let singleInstance = null;
+class PersistantDashcamIPC {
+  #isConnected = false;
+  onConnected = null;
+
+  constructor() {
+    if (singleInstance) return singleInstance;
+    singleInstance = this;
+
+    persistantIPC.connectTo("dashcam");
+
+    persistantIPC.of.dashcam.on("connect", () => {
+      this.#isConnected = true;
+      if (this.onConnected && typeof this.onConnected === "function")
+        this.onConnected();
+    });
+    persistantIPC.of.dashcam.on("disconnect", () => {
+      this.#isConnected = false;
+    });
+    persistantIPC.of.dashcam.on("error", () => {
+      this.#isConnected = false;
+    });
+  }
+
+  emit(event, payload) {
+    if (!this.#isConnected) return;
+    persistantIPC.of.dashcam.emit(event, payload);
+  }
+}
+
+const getLogFilePath = (id) => {
+  return path.join(os.tmpdir(), `dashcam_cli_recording_${id}.log`);
+};
+
+module.exports = {
+  createReplay,
+  getLogFilePath,
+  PersistantDashcamIPC,
+};

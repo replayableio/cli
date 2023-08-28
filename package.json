@@ -17,6 +17,7 @@
     "commander": "^9.4.0",
     "husky": "^7.0.4",
     "node-ipc": "^10.1.0",
+    "node-pty-prebuilt-multiarch": "^0.10.1-pre.5",
     "yargs": "^17.3.1"
   },
   "devDependencies": {
