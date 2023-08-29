@@ -10,11 +10,11 @@ Requires that you [install Dashcam Desktop](https://dashcam.io).
 
 - [CLI](#cli)
   - [Setup](#setup)
-  - [Setup](#record-cli)
-  - [Create a Replay](#create-a-replay)
+  - [Record CLI](#record-cli)
+  - [Create a Dash](#create-a-replay)
   - [Return a rich markdown link](#return-a-rich-markdown-link)
-  - [Set a replay title](#set-a-replay-title)
-  - [Attach the last 20 CLI commands to the replay](#attach-the-last-20-cli-commands-to-the-replay)
+  - [Set a Dash title](#set-a-replay-title)
+  - [Attach the last 20 CLI commands to the Dash](#attach-the-last-20-cli-commands-to-the-replay)
   - [Attach a logfile to the replay](#attach-a-logfile-to-the-replay)
 - [Web SDK](#web)
   - [Setup](#setup)
@@ -22,12 +22,12 @@ Requires that you [install Dashcam Desktop](https://dashcam.io).
   - [JS Error Handler](#js-error-handler)
 - [NodeJS SDK](#nodejs-sdk)
   - [Setup](#setup)
-  - [Create a Replay](#create-a-replay)
+  - [Create a Dash](#create-a-replay)
   - [Error Handler](#error-handler)
 - [GitHub CLI](#github-cli)
-  - [Create a github issue with a replay in the description](#create-a-github-issue-with-a-replay-in-the-description)
-  - [Create a github pull request with a replay in the description](#create-a-github-pull-request-with-a-replay-in-the-description)
-  - [Append a 30 second replay to a commit](#append-a-30-second-replay-to-a-commit)
+  - [Create a GitHub issue with a Dash in the description](#create-a-github-issue-with-a-replay-in-the-description)
+  - [Create a GitHub pull request with a Dash in the description](#create-a-github-pull-request-with-a-replay-in-the-description)
+  - [Append a 30 second Dash to a commit](#append-a-30-second-replay-to-a-commit)
 
 # Examples
 
