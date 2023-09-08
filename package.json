@@ -15,6 +15,7 @@
   "dependencies": {
     "cli-color": "^2.0.3",
     "commander": "^9.4.0",
+    "find-process": "^1.4.7",
     "husky": "^7.0.4",
     "node-ipc": "^10.1.0",
     "node-pty-prebuilt-multiarch": "^0.10.1-pre.5",

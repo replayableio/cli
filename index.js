@@ -70,7 +70,7 @@ program
       dashcam.onConnected = () => dashcam.emit("track-cli", logFile);
       fs.appendFileSync(logFile, "");
       const recorder = new Recorder(logFile);
-      recorder.start();
+      await recorder.start();
     } catch (e) {
       console.log("Error: ", e);
     }

@@ -1,5 +1,7 @@
 const fs = require("fs");
 const pty = require("node-pty-prebuilt-multiarch");
+const process = require("process");
+const find = require("find-process");
 
 class Recorder {
   #ptyProcess = null;
@@ -24,7 +26,7 @@ class Recorder {
     fs.appendFileSync(this.#logFile, data, "ascii");
   }
 
-  start() {
+  async start() {
     console.log(
       "This session is being recorded by Dashcam and dumped to",
       this.#logFile
@@ -34,7 +36,15 @@ class Recorder {
     // TODO: Find a way to consistently get the current shell this is running from
     // instead of using the default user shell (Maybe use parent processId to find
     // the process filepath)
-    const shell = process.env.SHELL;
+
+    const shell = (
+      process.env.SHELL ||
+      (await find("pid", process.ppid).then((arr) => arr[0].bin)) ||
+      ""
+    ).trim();
+
+    if (!shell) throw new Error("Could not detect the current shell");
+
     const args = [];
     if (!shell.toLowerCase().includes("powershell")) args.push("-l");
     this.#ptyProcess = pty.spawn(shell, args, {
