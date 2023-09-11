@@ -51,6 +51,14 @@ class Recorder {
       // Inject a terminal variable to let the child processes know
       // of the active recording so they we don't record recursively
       env: { ...process.env, DASHCAM_TERMINAL_RECORDING: "TRUE" },
+      cols: process.stdout.columns,
+      rows: process.stdout.rows,
+      cwd: process.cwd(),
+    });
+
+    process.stdout.on("resize", () => {
+      this.#ptyProcess.cols = process.stdout.columns;
+      this.#ptyProcess.rows = process.stdout.rows;
     });
 
     process.stdin.on("data", this.#onInput.bind(this));
