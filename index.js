@@ -4,6 +4,8 @@ const fs = require("fs");
 const crypto = require("crypto");
 const lib = require("./lib");
 const Recorder = require("./recorder");
+const packageMetadata = require("./package.json");
+
 
 if (module.parent) {
   module.exports = lib;
@@ -17,7 +19,7 @@ let stdin = "";
 program
   .name("dashcam")
   .description("Capture the steps to reproduce every bug.")
-  .version("0.1.0");
+  .version(packageMetadata.version);
 
 program.showHelpAfterError();
 
