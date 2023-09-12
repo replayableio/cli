@@ -27,10 +27,7 @@ class Recorder {
   }
 
   async start() {
-    console.log(
-      "This session is being recorded by Dashcam and dumped to",
-      this.#logFile
-    );
+    console.log("This session is being recorded by Dashcam");
     console.log("Type `exit` to stop recording");
 
     // TODO: Find a way to consistently get the current shell this is running from
