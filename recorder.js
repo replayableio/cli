@@ -53,10 +53,9 @@ class Recorder {
       cwd: process.cwd(),
     });
 
-    process.stdout.on("resize", () => {
-      this.#ptyProcess.cols = process.stdout.columns;
-      this.#ptyProcess.rows = process.stdout.rows;
-    });
+    process.stdout.on("resize", () =>
+      this.#ptyProcess.resize(process.stdout.columns, process.stdout.rows)
+    );
 
     process.stdin.on("data", this.#onInput.bind(this));
     this.#ptyProcess.on("data", this.#onData.bind(this));
