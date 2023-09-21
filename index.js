@@ -6,7 +6,6 @@ const lib = require("./lib");
 const Recorder = require("./recorder");
 const packageMetadata = require("./package.json");
 
-
 if (module.parent) {
   module.exports = lib;
   return;
@@ -93,3 +92,50 @@ if (process.stdin.isTTY) {
     program.parse(process.argv);
   });
 }
+
+program
+  .command("start", { isDefault: true })
+  .description("Start recording a clip.")
+  .action(async function (str, options) {
+    try {
+      await lib.startRecording();
+      console.log("Dashcam started recording a clip");
+      process.exit(0);
+    } catch (e) {
+      console.error("Error: ", e);
+      process.exit(1);
+    }
+  });
+
+program
+  .command("stop", { isDefault: true })
+  .description("Stops recording a clip, publishes it, and then returns a URL.")
+  .option(
+    "-t, --title <string>",
+    "Title of the clip. Automatically generated if not supplied."
+  )
+  .option(
+    "-d, --description [text]",
+    "Markdown body. This may also be piped in: `cat README.md | dashcam create`"
+  )
+  .option("--md", "Returns code for a rich markdown image link.")
+  .action(async function (str, options) {
+    try {
+      let description = this.opts().description;
+      if (stdin) {
+        description = stdin;
+      }
+
+      let result = await lib.stopRecording({
+        title: this.opts().title,
+        description,
+        private: this.opts().private,
+        md: this.opts().md,
+        png: this.opts().png,
+      });
+      console.log(result);
+    } catch (e) {
+      console.log("Error: ", e);
+    }
+    process.exit(0);
+  });

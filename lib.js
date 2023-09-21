@@ -67,6 +67,51 @@ const createReplay = async function (options = {}) {
   });
 };
 
+const startRecording = async function () {
+  await connectToIpc();
+
+  return new Promise(async (resolve, reject) => {
+    ipc.of.dashcam.on("start_recording", resolve);
+
+    setTimeout(() => {
+      reject("Dashcam Desktop App did not respond in time.");
+    }, 60000 * 5);
+
+    ipc.of.dashcam.emit("start_recording");
+  });
+};
+
+const stopRecording = async function (options = {}) {
+  options.md = options.md || false;
+
+  options.title = options.title || false;
+  options.description = options.description || null;
+
+  await connectToIpc();
+
+  return new Promise(async (resolve, reject) => {
+    ipc.of.dashcam.on(
+      "upload", //any event or message type your server listens for
+      function (data) {
+        if (options.md) {
+          resolve(data.replay.markdown);
+        } else {
+          resolve(data.replay.shareLink);
+        }
+      }
+    );
+
+    setTimeout(() => {
+      reject("Dashcam Desktop App did not respond in time.");
+    }, 60000 * 5);
+
+    ipc.of.dashcam.emit("stop_recording", {
+      title: options.title,
+      description: options.description,
+    });
+  });
+};
+
 let singleInstance = null;
 class PersistantDashcamIPC {
   #isConnected = false;
@@ -103,6 +148,8 @@ const getLogFilePath = (id) => {
 
 module.exports = {
   createReplay,
+  startRecording,
+  stopRecording,
   getLogFilePath,
   PersistantDashcamIPC,
 };
