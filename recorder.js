@@ -6,12 +6,15 @@ const find = require("find-process");
 class Recorder {
   #ptyProcess = null;
   #logFile = null;
+  #silent = false;
 
-  constructor(logFile) {
+  constructor(logFile, silent) {
     // This way we don't run the recording script recursively, especially
     // if it's inside bash/zsh configs
+    this.#silent = silent;
     if (process.env.DASHCAM_TERMINAL_RECORDING) {
-      console.log("The current terminal is already being recorded");
+      if (!this.#silent)
+        console.log("The current terminal is already being recorded");
       process.exit(0);
     }
     this.#logFile = logFile;
@@ -27,8 +30,10 @@ class Recorder {
   }
 
   async start() {
-    console.log("This session is being recorded by Dashcam");
-    console.log("Type `exit` to stop recording");
+    if (!this.#silent) {
+      console.log("This session is being recorded by Dashcam");
+      console.log("Type `exit` to stop recording");
+    }
 
     // TODO: Find a way to consistently get the current shell this is running from
     // instead of using the default user shell (Maybe use parent processId to find
