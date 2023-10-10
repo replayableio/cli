@@ -60,10 +60,14 @@ const createReplay = async function (options = {}) {
       );
     }, 60000 * 5);
 
-    ipc.of.dashcam.emit("create", {
+    const replay = {
       title: options.title,
       description: options.description,
-    });
+    };
+
+    ipc.of.dashcam.emit("create", replay);
+  
+    resolve(replay);
   });
 };
 
