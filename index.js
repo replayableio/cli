@@ -81,15 +81,16 @@ program
 program
   .command("start-replay")
   .description(
-    "Start instant recording on dashcam"
+    "Start instant replay recording on dashcam"
   )
   .action(async function (name, options) {
     try {
       await lib.startInstantReplay();
+      process.exit(0);
     } catch (e) {
       console.log("startInstantReplay error: ", e);
+      process.exit(1);
     }
-    process.exit(0);
   });
 
 if (process.stdin.isTTY) {

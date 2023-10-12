@@ -80,7 +80,7 @@ const startInstantReplay = async function (options = {}) {
       );
     }, 60000 * 5);
 
-    console.log('Starting instant replay from CLI')
+    console.log('Start instant replay from CLI')
 
     ipc.of.dashcam.emit("start-instant-replay");
   
