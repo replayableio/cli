@@ -85,11 +85,11 @@ program
   )
   .action(async function (name, options) {
     try {
-      let response = await lib.startInstantReplay();
-      console.log("startInstantReplay all good: ", response);
+      await lib.startInstantReplay();
     } catch (e) {
       console.log("startInstantReplay error: ", e);
     }
+    process.exit(0);
   });
 
 if (process.stdin.isTTY) {
