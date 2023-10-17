@@ -60,9 +60,30 @@ const createReplay = async function (options = {}) {
       );
     }, 60000 * 5);
 
-    ipc.of.dashcam.emit("create", {
+    const replay = {
       title: options.title,
       description: options.description,
+    };
+
+    ipc.of.dashcam.emit("create", replay);
+  
+    resolve(replay);
+  });
+};
+
+const startInstantReplay = async function (options = {}) {
+  return new Promise(async (resolve, reject) => {
+    await connectToIpc();
+    setTimeout(() => {
+      reject(
+        "Dashcam Desktop App did not respond in time. Cancel startInstantReplay"
+      );
+    }, 60000 * 5);
+
+    ipc.of.dashcam.emit("start-instant-replay");
+  
+    resolve({
+      started: true
     });
   });
 };
@@ -92,7 +113,10 @@ class PersistantDashcamIPC {
   }
 
   emit(event, payload) {
-    if (!this.#isConnected) return;
+    if (!this.#isConnected) {
+      console.log(`Cannot emit event: ${event}. Disconnected!`);
+      return;
+    }
     persistantIPC.of.dashcam.emit(event, payload);
   }
 }
@@ -103,6 +127,7 @@ const getLogFilePath = (id) => {
 
 module.exports = {
   createReplay,
+  startInstantReplay,
   getLogFilePath,
   PersistantDashcamIPC,
 };

@@ -50,7 +50,6 @@ program
         md: this.opts().md,
         png: this.opts().png,
       });
-      console.log(result);
     } catch (e) {
       console.log("Error: ", e);
     }
@@ -75,6 +74,19 @@ program
       await recorder.start();
     } catch (e) {
       console.log("Error: ", e);
+    }
+  });
+
+program
+  .command("start")
+  .description("Start instant replay recording on dashcam")
+  .action(async function (name, options) {
+    try {
+      await lib.startInstantReplay();
+      process.exit(0);
+    } catch (e) {
+      console.log("startInstantReplay error: ", e);
+      process.exit(1);
     }
   });
 
