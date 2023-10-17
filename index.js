@@ -6,7 +6,6 @@ const lib = require("./lib");
 const Recorder = require("./recorder");
 const packageMetadata = require("./package.json");
 
-
 if (module.parent) {
   module.exports = lib;
   return;
@@ -51,7 +50,6 @@ program
         md: this.opts().md,
         png: this.opts().png,
       });
-      console.log(result);
     } catch (e) {
       console.log("Error: ", e);
     }
@@ -60,10 +58,11 @@ program
 
 program
   .command("record")
+  .option("-s, --silent", "Use silent mode when recording")
   .description(
     "Start a recording terminal to be included in your dashcam video recording"
   )
-  .action(async function (str, options) {
+  .action(async function ({ silent }) {
     try {
       const dashcam = new lib.PersistantDashcamIPC();
       const id = crypto.randomUUID();
@@ -71,10 +70,23 @@ program
 
       dashcam.onConnected = () => dashcam.emit("track-cli", logFile);
       fs.appendFileSync(logFile, "");
-      const recorder = new Recorder(logFile);
+      const recorder = new Recorder(logFile, silent);
       await recorder.start();
     } catch (e) {
       console.log("Error: ", e);
+    }
+  });
+
+program
+  .command("start")
+  .description("Start instant replay recording on dashcam")
+  .action(async function (name, options) {
+    try {
+      await lib.startInstantReplay();
+      process.exit(0);
+    } catch (e) {
+      console.log("startInstantReplay error: ", e);
+      process.exit(1);
     }
   });
 
