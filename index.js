@@ -78,7 +78,7 @@ program
   });
 
 program
-  .command("x")
+  .command("pipe")
   .description(
     "Pipe command output to dashcam to be included in recorded video"
   )
@@ -114,7 +114,7 @@ program
     }
   });
 
-if (process.stdin.isTTY || process.argv[2] === "x") {
+if (process.stdin.isTTY || process.argv[2] === "pipe") {
   program.parse(process.argv);
 } else {
   process.stdin.on("error", function () {});

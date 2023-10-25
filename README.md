@@ -55,12 +55,12 @@ Anything you type in your terminal will appear in your dash. To exit, simply typ
 exit
 ```
 
-## Record command output
+## Pipe command output into dashcam for recording
 
 To record the output of a command in the Dashcam app (In this example the `ping 1.1.1.1` command ), use the following command
 
 ```
-ping 1.1.1.1 | dashcam x
+ping 1.1.1.1 | dashcam pipe
 ```
 
 ### Create a Replay
