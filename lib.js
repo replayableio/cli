@@ -1,5 +1,6 @@
 const os = require("os");
 const path = require("path");
+const fs = require("fs");
 const clc = require("cli-color");
 const ipc = require("node-ipc").default;
 
@@ -11,6 +12,32 @@ ipc.config.maxRetries = 0;
 const persistantIPC = new ipc.IPC();
 persistantIPC.config.retry = 500;
 persistantIPC.config.silent = true;
+
+let dashcamDir;
+const appName = "Dashcam";
+const platform = os.platform();
+
+if (platform === "win32") {
+  dashcamDir = path.join(process.env.APPDATA, appName);
+} else if (platform === "darwin") {
+  dashcamDir = path.join(
+    process.env.HOME,
+    "Library",
+    "Application Support",
+    appName
+  );
+} else {
+  dashcamDir = path.join(process.env.HOME, `.${appName}`);
+}
+
+if (!fs.existsSync(dashcamDir)) {
+  fs.mkdirSync(dashcamDir);
+}
+
+const logsDir = path.join(dashcamDir, "cli-logs");
+if (!fs.existsSync(logsDir)) {
+  fs.mkdirSync(logsDir);
+}
 
 const connectToIpc = function () {
   return new Promise((resolve, reject) => {
@@ -66,7 +93,7 @@ const createReplay = async function (options = {}) {
     };
 
     ipc.of.dashcam.emit("create", replay);
-  
+
     resolve(replay);
   });
 };
@@ -81,9 +108,9 @@ const startInstantReplay = async function (options = {}) {
     }, 60000 * 5);
 
     ipc.of.dashcam.emit("start-instant-replay");
-  
+
     resolve({
-      started: true
+      started: true,
     });
   });
 };
@@ -122,7 +149,7 @@ class PersistantDashcamIPC {
 }
 
 const getLogFilePath = (id) => {
-  return path.join(os.tmpdir(), `dashcam_cli_recording_${id}.log`);
+  return path.join(logsDir, `dashcam_cli_recording_${id}.log`);
 };
 
 module.exports = {
