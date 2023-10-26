@@ -78,6 +78,30 @@ program
   });
 
 program
+  .command("pipe")
+  .description(
+    "Pipe command output to dashcam to be included in recorded video"
+  )
+  .action(async function () {
+    try {
+      const dashcam = new lib.PersistantDashcamIPC();
+      const id = crypto.randomUUID();
+      const logFile = lib.getLogFilePath(id);
+
+      dashcam.onConnected = () => dashcam.emit("track-cli", logFile);
+      fs.appendFileSync(logFile, "");
+      process.stdin.on("data", (data) => {
+        process.stdout.write(data);
+        fs.appendFileSync(logFile, data);
+      });
+      process.stdin.on("close", () => process.exit());
+      process.stdin.on("error", () => process.exit(1));
+    } catch (e) {
+      console.log("Error: ", e);
+    }
+  });
+
+program
   .command("start")
   .description("Start instant replay recording on dashcam")
   .action(async function (name, options) {
@@ -90,7 +114,7 @@ program
     }
   });
 
-if (process.stdin.isTTY) {
+if (process.stdin.isTTY || process.argv[2] === "pipe") {
   program.parse(process.argv);
 } else {
   process.stdin.on("error", function () {});
