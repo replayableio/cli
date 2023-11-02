@@ -36,6 +36,10 @@ program
     "Markdown body. This may also be piped in: `cat README.md | dashcam create`"
   )
   .option("--md", "Returns code for a rich markdown image link.")
+  .option(
+    "-p, --publish",
+    "Whether to publish the clip instantly after creation or not."
+  )
   .action(async function (str, options) {
     try {
       let description = this.opts().description;
@@ -48,6 +52,7 @@ program
         description,
         private: this.opts().private,
         md: this.opts().md,
+        publish: this.opts().publish,
         png: this.opts().png,
       });
     } catch (e) {

@@ -36,6 +36,7 @@ const connectToIpc = function () {
 
 const createReplay = async function (options = {}) {
   options.md = options.md || false;
+  options.publish = options.publish || false;
 
   options.title = options.title || false;
   options.description = options.description || null;
@@ -46,7 +47,7 @@ const createReplay = async function (options = {}) {
     ipc.of.dashcam.on(
       "upload", //any event or message type your server listens for
       function (data) {
-        if (options.md) {
+        if (options.md && !options.publish) {
           resolve(data.replay.markdown);
         } else {
           resolve(data.replay.shareLink);
@@ -63,11 +64,14 @@ const createReplay = async function (options = {}) {
     const replay = {
       title: options.title,
       description: options.description,
+      publish: options.publish,
     };
 
     ipc.of.dashcam.emit("create", replay);
-  
-    resolve(replay);
+
+    if (!options.publish) {
+      resolve(replay);
+    }
   });
 };
 
@@ -81,9 +85,9 @@ const startInstantReplay = async function (options = {}) {
     }, 60000 * 5);
 
     ipc.of.dashcam.emit("start-instant-replay");
-  
+
     resolve({
-      started: true
+      started: true,
     });
   });
 };
