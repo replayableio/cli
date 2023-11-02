@@ -55,6 +55,7 @@ program
         publish: this.opts().publish,
         png: this.opts().png,
       });
+      console.log(result);
     } catch (e) {
       console.log("Error: ", e);
     }
