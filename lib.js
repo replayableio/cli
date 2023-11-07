@@ -47,8 +47,8 @@ const createReplay = async function (options = {}) {
     ipc.of.dashcam.on(
       "upload", //any event or message type your server listens for
       function (data) {
-        if (options.md && !options.publish) {
-          resolve(data.replay.markdown);
+        if (options.md) {
+          resolve(data.replay.gifMarkdown);
         } else {
           resolve(data.replay.shareLink);
         }
