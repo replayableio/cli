@@ -6,6 +6,25 @@ Add Dashcam to your app or workflow. This package allows you to capture logs and
 
 Requires that you [install Dashcam Desktop](https://dashcam.io).
 
+# Manual
+
+```
+Usage: dashcam [options] [command]
+
+Capture the steps to reproduce every bug.
+
+Options:
+  -V, --version     output the version number
+  -h, --help        display help for command
+
+Commands:
+  create [options]  Create a clip and output the resulting url or markdown. Will launch desktop app for local editing before publishing.
+  record [options]  Start a recording terminal to be included in your dashcam video recording
+  pipe              Pipe command output to dashcam to be included in recorded video
+  start             Start instant replay recording on dashcam
+  help [command]    display help for command
+  ```
+
 ## Table of contents
 
 - [CLI](#cli)
