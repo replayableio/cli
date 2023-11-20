@@ -26,7 +26,7 @@ class Recorder {
 
   #onData(data) {
     process.stdout.write(data);
-    fs.appendFileSync(this.#logFile, data, "ascii");
+    fs.appendFileSync(this.#logFile, data, "utf-8");
   }
 
   async start() {
