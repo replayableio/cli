@@ -108,6 +108,27 @@ program
   });
 
 program
+  .command("log-config")
+  .requiredOption("--name <name>", "The name for the log config.")
+  .requiredOption(
+    "--type <type>",
+    'The type of log config ("web" or "application").'
+  )
+  .requiredOption(
+    "--pattern <patterns...>",
+    'The patterns of the urls in the case of "web" or the file paths in the case of "application" (Can contain wildcards \'*\'), multiple patterns can be provided.'
+  )
+  .description("Add a logs config to Dashcam")
+  .action(async function ({ name, type, pattern: patterns }) {
+    if (!["web", "application"].includes(type)) {
+      console.log('The "type" options needs to be "web" or "application"');
+    } else {
+      await lib.addLogsConfig({ name, type, patterns });
+    }
+    process.exit(0);
+  });
+
+program
   .command("start")
   .description("Start instant replay recording on dashcam")
   .action(async function (name, options) {

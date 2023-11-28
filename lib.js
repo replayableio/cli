@@ -129,9 +129,15 @@ const getLogFilePath = (id) => {
   return path.join(os.tmpdir(), `dashcam_cli_recording_${id}.log`);
 };
 
+const addLogsConfig = async (options) => {
+  await connectToIpc();
+  ipc.of.dashcam.emit("add-logs-config", options);
+};
+
 module.exports = {
   createReplay,
-  startInstantReplay,
+  addLogsConfig,
   getLogFilePath,
+  startInstantReplay,
   PersistantDashcamIPC,
 };
