@@ -65,6 +65,7 @@ const createReplay = async function (options = {}) {
       title: options.title,
       description: options.description,
       publish: options.publish,
+      project: options.project,
     };
 
     ipc.of.dashcam.emit("create", replay);

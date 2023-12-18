@@ -40,6 +40,10 @@ program
     "-p, --publish",
     "Whether to publish the clip instantly after creation or not."
   )
+  .option(
+    "-k, --project [string]",
+    "The project id to which to publish the replay"
+  )
   .action(async function (str, options) {
     try {
       let description = this.opts().description;
@@ -54,6 +58,7 @@ program
         md: this.opts().md,
         publish: this.opts().publish,
         png: this.opts().png,
+        project: this.opts().project,
       });
       console.log(result);
     } catch (e) {
