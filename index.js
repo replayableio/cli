@@ -36,7 +36,7 @@ program
     "Markdown body. This may also be piped in: `cat README.md | dashcam create`"
   )
   .option("--md", "Returns code for a rich markdown image link.")
-  .option("-c --capture", "Create a capture not replay.")
+  .option("-r --replay", "Create a replay not capture.")
   .option(
     "-p, --publish",
     "Whether to publish the clip instantly after creation or not."
@@ -54,7 +54,7 @@ program
         private: this.opts().private,
         md: this.opts().md,
         publish: this.opts().publish,
-        capture: this.opts().capture || false,
+        capture: !this.opts().replay,
         png: this.opts().png,
       });
       console.log(result);
@@ -132,11 +132,11 @@ program
 
 program
   .command("start")
-  .description("Start instant replay recording on dashcam")
-  .option("-c, --capture", "Start capture, not replay.")
+  .description("Start capture on dashcam")
+  .option("-r, --replay", "Start replay, not capture.")
   .action(async function (name, options) {
     try {
-      const isCapture = this.opts().capture || false;
+      const isCapture = !this.opts().replay;
       await lib.startRecording(isCapture);
       process.exit(0);
     } catch (e) {
