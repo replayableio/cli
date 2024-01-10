@@ -110,7 +110,7 @@ program
   });
 
 program
-  .command("log-config")
+  .command("track")
   .requiredOption("--name <name>", "The name for the log config.")
   .requiredOption(
     "--type <type>",
