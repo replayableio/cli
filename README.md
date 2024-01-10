@@ -18,15 +18,11 @@ Options:
   -h, --help            display help for command
 
 Commands:
-  create [options]      Create a clip and output the resulting url or markdown. Will launch desktop app for local editing before publishing.
+  create [options]      Create a clip(capture/replay) and output the resulting url or markdown. Will launch desktop app for local editing before publishing.
   record [options]      Start a recording terminal to be included in your dashcam video recording
   pipe                  Pipe command output to dashcam to be included in recorded video
-<<<<<<< HEAD
   track [options]  Add a logs config to Dashcam
-=======
-  log-config [options]  Add a logs config to Dashcam
->>>>>>> 1e6eebadd859ac917b6457fb8a758a5e27f5c3a6
-  start                 Start instant replay recording on dashcam
+  start                 Start capture or start instant replay recording on dashcam
   help [command]        display help for command
 ```
 
