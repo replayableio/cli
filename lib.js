@@ -34,7 +34,7 @@ const connectToIpc = function () {
   });
 };
 
-const createReplay = async function (options = {}) {
+const createClip = async function (options = {}) {
   options.md = options.md || false;
   options.publish = options.publish || false;
 
@@ -66,6 +66,7 @@ const createReplay = async function (options = {}) {
       description: options.description,
       publish: options.publish,
       project: options.project,
+      capture: options.capture,
     };
 
     ipc.of.dashcam.emit("create", replay);
@@ -76,16 +77,16 @@ const createReplay = async function (options = {}) {
   });
 };
 
-const startInstantReplay = async function (options = {}) {
+const startRecording = async function (isCapture = false) {
   return new Promise(async (resolve, reject) => {
     await connectToIpc();
     setTimeout(() => {
       reject(
-        "Dashcam Desktop App did not respond in time. Cancel startInstantReplay"
+        "Dashcam Desktop App did not respond in time. Cancel startRecording"
       );
     }, 60000 * 5);
 
-    ipc.of.dashcam.emit("start-instant-replay");
+    ipc.of.dashcam.emit("start-instant-replay", isCapture);
 
     resolve({
       started: true,
@@ -130,9 +131,15 @@ const getLogFilePath = (id) => {
   return path.join(os.tmpdir(), `dashcam_cli_recording_${id}.log`);
 };
 
+const addLogsConfig = async (options) => {
+  await connectToIpc();
+  ipc.of.dashcam.emit("add-logs-config", options);
+};
+
 module.exports = {
-  createReplay,
-  startInstantReplay,
+  createClip,
+  addLogsConfig,
   getLogFilePath,
+  startRecording,
   PersistantDashcamIPC,
 };

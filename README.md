@@ -14,15 +14,17 @@ Usage: dashcam [options] [command]
 Capture the steps to reproduce every bug.
 
 Options:
-  -V, --version     output the version number
-  -h, --help        display help for command
+  -V, --version         output the version number
+  -h, --help            display help for command
 
 Commands:
   create [options]  Create a clip and output the resulting url or markdown. Will launch desktop app for local editing before publishing.
   record [options]  Start a recording terminal to be included in your dashcam video recording
   pipe              Pipe command output to dashcam to be included in recorded video
+  track [options]  Add a logs config to Dashcam
   start             Start instant replay recording on dashcam
   help [command]    display help for command
+
 ```
 
 ## Table of contents
@@ -80,6 +82,14 @@ Anything you type in your terminal will appear in your dash. To exit, simply typ
 
 ```
 exit
+```
+
+## Add a new logs config to dashcam
+
+Add a new logs config to dashcam by specifying a name, a type ("application" or "web"), and one or multiple patterns for the urls in the case of a web logs config, or for file paths in the case of an application logs config.
+
+```
+dashcam track --name=social --type=web --pattern="*facebook.com*" --pattern="*twitter.com*"
 ```
 
 ## Pipe command output into dashcam for recording

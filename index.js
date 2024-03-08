@@ -36,6 +36,7 @@ program
     "Markdown body. This may also be piped in: `cat README.md | dashcam create`"
   )
   .option("--md", "Returns code for a rich markdown image link.")
+  .option("-r --replay", "Create a replay not capture.")
   .option(
     "-p, --publish",
     "Whether to publish the clip instantly after creation or not."
@@ -51,12 +52,13 @@ program
         description = stdin;
       }
 
-      let result = await lib.createReplay({
+      let result = await lib.createClip({
         title: this.opts().title,
         description,
         private: this.opts().private,
         md: this.opts().md,
         publish: this.opts().publish,
+        capture: !this.opts().replay,
         png: this.opts().png,
         project: this.opts().project,
       });
@@ -113,14 +115,37 @@ program
   });
 
 program
+  .command("track")
+  .requiredOption("--name <name>", "The name for the log config.")
+  .requiredOption(
+    "--type <type>",
+    'The type of log config ("web" or "application").'
+  )
+  .requiredOption(
+    "--pattern <patterns...>",
+    'The patterns of the urls in the case of "web" or the file paths in the case of "application" (Can contain wildcards \'*\'), multiple patterns can be provided.'
+  )
+  .description("Add a logs config to Dashcam")
+  .action(async function ({ name, type, pattern: patterns }) {
+    if (!["web", "application"].includes(type)) {
+      console.log('The "type" options needs to be "web" or "application"');
+    } else {
+      await lib.addLogsConfig({ name, type, patterns });
+    }
+    process.exit(0);
+  });
+
+program
   .command("start")
-  .description("Start instant replay recording on dashcam")
+  .description("Start capture on dashcam")
+  .option("-r, --replay", "Start replay, not capture.")
   .action(async function (name, options) {
     try {
-      await lib.startInstantReplay();
+      const isCapture = !this.opts().replay;
+      await lib.startRecording(isCapture);
       process.exit(0);
     } catch (e) {
-      console.log("startInstantReplay error: ", e);
+      console.log("startRecording error: ", e);
       process.exit(1);
     }
   });
