@@ -18,13 +18,13 @@ Options:
   -h, --help            display help for command
 
 Commands:
+  auth <api-key>    Authenticate the dashcam desktop using a team's apiKey
   create [options]  Create a clip and output the resulting url or markdown. Will launch desktop app for local editing before publishing.
   record [options]  Start a recording terminal to be included in your dashcam video recording
   pipe              Pipe command output to dashcam to be included in recorded video
   track [options]  Add a logs config to Dashcam
   start             Start instant replay recording on dashcam
   help [command]    display help for command
-
 ```
 
 ## Table of contents
@@ -35,9 +35,10 @@ Commands:
 - [Examples](#examples)
   - [CLI](#cli)
     - [Setup](#setup)
-  - [Record CLI](#record-cli)
-  - [Pipe command output into dashcam for recording](#pipe-command-output-into-dashcam-for-recording)
-  - [Create a Replay](#create-a-replay)
+    - [Auth](#auth)
+    - [Record CLI](#record-cli)
+    - [Pipe command output into dashcam for recording](#pipe-command-output-into-dashcam-for-recording)
+    - [Create a Replay](#create-a-replay)
     - [Return a rich markdown link](#return-a-rich-markdown-link)
     - [Set a replay title](#set-a-replay-title)
     - [Set a project to publish to](#set-a-project-to-publish-to)
@@ -70,7 +71,15 @@ Also see [the examples folder](https://github.com/replayableio/cli/tree/main/exa
 npm install dashcam -g
 ```
 
-## Record CLI
+### Auth
+
+To authenticate the Dashcam desktop app using a team's Api key, Use the following command
+
+```
+dashcam auth <Api-Key>
+```
+
+### Record CLI
 
 To record the CLI in the Dashcam app, use the following command
 

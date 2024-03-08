@@ -12,10 +12,14 @@ const persistantIPC = new ipc.IPC();
 persistantIPC.config.retry = 500;
 persistantIPC.config.silent = true;
 
-const connectToIpc = function () {
+const connectToIpc = function (timeout) {
   return new Promise((resolve, reject) => {
+    let timeoutToClean;
     ipc.connectTo("dashcam");
-    ipc.of.dashcam.on("connect", resolve);
+    ipc.of.dashcam.on("connect", () => {
+      resolve();
+      if (timeoutToClean) clearTimeout(timeoutToClean);
+    });
     ipc.of.dashcam.on("error", (e) => {
       if (e.code === "ENOENT") {
         console.log(
@@ -26,11 +30,26 @@ const connectToIpc = function () {
             "You may need to download and install the app from https://bit.ly/3ipoQLJ"
           )
         );
+        reject();
       }
     });
     ipc.of.dashcam.on("disconnect", function () {
       console.log("Disconnected from Dashcam");
+      reject();
     });
+    if (timeout && typeof timeout === "number") {
+      timeoutToClean = setTimeout(() => {
+        console.log(
+          clc.red("Could not connect to Dashcam Desktop App. Is it running?")
+        );
+        console.log(
+          clc.yellow(
+            "You may need to download and install the app from https://bit.ly/3ipoQLJ"
+          )
+        );
+        reject();
+      }, timeout);
+    }
   });
 };
 
@@ -94,6 +113,22 @@ const startRecording = async function (isCapture = false) {
   });
 };
 
+const sendApiKey = async function (apiKey) {
+  return new Promise(async (resolve, reject) => {
+    await connectToIpc(5000).catch(reject);
+    ipc.of.dashcam.emit("auth", { apiKey });
+    ipc.of.dashcam.on("auth-state", (success) => {
+      if (success) return resolve();
+      console.log(clc.red("Could not authenticate using the ApiKey"));
+      reject();
+    });
+    setTimeout(() => {
+      console.log(clc.red("Could not authenticate using the ApiKey"));
+      reject();
+    }, 10000);
+  });
+};
+
 let singleInstance = null;
 class PersistantDashcamIPC {
   #isConnected = false;
@@ -137,6 +172,9 @@ const addLogsConfig = async (options) => {
 };
 
 module.exports = {
+  sendApiKey,
+  createReplay,
+  startInstantReplay,
   createClip,
   addLogsConfig,
   getLogFilePath,

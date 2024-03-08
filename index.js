@@ -23,6 +23,17 @@ program
 program.showHelpAfterError();
 
 program
+  .command("auth")
+  .argument("<api-key>", "The team's ApiKey")
+  .description("Authenticate the dashcam desktop using a team's apiKey")
+  .action(async function (apiKey) {
+    await lib
+      .sendApiKey(apiKey)
+      .then(() => process.exit())
+      .catch(() => process.exit(1));
+  });
+
+program
   .command("create", { isDefault: true })
   .description(
     "Create a clip and output the resulting url or markdown. Will launch desktop app for local editing before publishing."
