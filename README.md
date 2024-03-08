@@ -14,14 +14,15 @@ Usage: dashcam [options] [command]
 Capture the steps to reproduce every bug.
 
 Options:
-  -V, --version     output the version number
-  -h, --help        display help for command
+  -V, --version         output the version number
+  -h, --help            display help for command
 
 Commands:
   auth <api-key>    Authenticate the dashcam desktop using a team's apiKey
   create [options]  Create a clip and output the resulting url or markdown. Will launch desktop app for local editing before publishing.
   record [options]  Start a recording terminal to be included in your dashcam video recording
   pipe              Pipe command output to dashcam to be included in recorded video
+  track [options]  Add a logs config to Dashcam
   start             Start instant replay recording on dashcam
   help [command]    display help for command
 ```
@@ -40,6 +41,7 @@ Commands:
     - [Create a Replay](#create-a-replay)
     - [Return a rich markdown link](#return-a-rich-markdown-link)
     - [Set a replay title](#set-a-replay-title)
+    - [Set a project to publish to](#set-a-project-to-publish-to)
     - [Attach the last 20 CLI commands to the replay](#attach-the-last-20-cli-commands-to-the-replay)
     - [Attach a logfile to the replay](#attach-a-logfile-to-the-replay)
   - [GitHub CLI](#github-cli)
@@ -91,7 +93,15 @@ Anything you type in your terminal will appear in your dash. To exit, simply typ
 exit
 ```
 
-### Pipe command output into dashcam for recording
+## Add a new logs config to dashcam
+
+Add a new logs config to dashcam by specifying a name, a type ("application" or "web"), and one or multiple patterns for the urls in the case of a web logs config, or for file paths in the case of an application logs config.
+
+```
+dashcam track --name=social --type=web --pattern="*facebook.com*" --pattern="*twitter.com*"
+```
+
+## Pipe command output into dashcam for recording
 
 To record the output of a command in the Dashcam app (In this example the `ping 1.1.1.1` command ), use the following command
 
@@ -99,7 +109,7 @@ To record the output of a command in the Dashcam app (In this example the `ping 
 ping 1.1.1.1 | dashcam pipe
 ```
 
-### Create a Replay
+## Create a Replay
 
 ```sh
 $ dashcam
@@ -120,6 +130,12 @@ Watch [Dashcam - New Replay](https://dashcam.io/replay/123?share=xyz) on Dashcam
 
 ```sh
 $ dashcam -t "My New Title"
+```
+
+### Set a project to publish to
+
+```sh
+$ dashcam -k wef8we72h23012j
 ```
 
 ### Attach the last 20 CLI commands to the replay
