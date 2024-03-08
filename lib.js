@@ -65,6 +65,7 @@ const createClip = async function (options = {}) {
       title: options.title,
       description: options.description,
       publish: options.publish,
+      project: options.project,
       capture: options.capture,
     };
 

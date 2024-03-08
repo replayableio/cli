@@ -18,36 +18,45 @@ Options:
   -h, --help            display help for command
 
 Commands:
-  create [options]      Create a clip(capture/replay) and output the resulting url or markdown. Will launch desktop app for local editing before publishing.
-  record [options]      Start a recording terminal to be included in your dashcam video recording
-  pipe                  Pipe command output to dashcam to be included in recorded video
+  create [options]  Create a clip and output the resulting url or markdown. Will launch desktop app for local editing before publishing.
+  record [options]  Start a recording terminal to be included in your dashcam video recording
+  pipe              Pipe command output to dashcam to be included in recorded video
   track [options]  Add a logs config to Dashcam
-  start                 Start capture or start instant replay recording on dashcam
-  help [command]        display help for command
+  start             Start instant replay recording on dashcam
+  help [command]    display help for command
+
 ```
 
 ## Table of contents
 
-- [CLI](#cli)
-  - [Setup](#setup)
+- [Dashcam CLI](#dashcam-cli)
+- [Manual](#manual)
+  - [Table of contents](#table-of-contents)
+- [Examples](#examples)
+  - [CLI](#cli)
+    - [Setup](#setup)
   - [Record CLI](#record-cli)
-  - [Create a Dash](#create-a-replay)
-  - [Return a rich markdown link](#return-a-rich-markdown-link)
-  - [Set a Dash title](#set-a-replay-title)
-  - [Attach the last 20 CLI commands to the Dash](#attach-the-last-20-cli-commands-to-the-replay)
-  - [Attach a logfile to the replay](#attach-a-logfile-to-the-replay)
-- [Web SDK](#web)
-  - [Setup](#setup)
-  - [HTML Anchor Tag](#html-anchor-tag)
-  - [JS Error Handler](#js-error-handler)
-- [NodeJS SDK](#nodejs-sdk)
-  - [Setup](#setup)
-  - [Create a Dash](#create-a-replay)
-  - [Error Handler](#error-handler)
-- [GitHub CLI](#github-cli)
-  - [Create a GitHub issue with a Dash in the description](#create-a-github-issue-with-a-replay-in-the-description)
-  - [Create a GitHub pull request with a Dash in the description](#create-a-github-pull-request-with-a-replay-in-the-description)
-  - [Append a 30 second Dash to a commit](#append-a-30-second-replay-to-a-commit)
+  - [Pipe command output into dashcam for recording](#pipe-command-output-into-dashcam-for-recording)
+  - [Create a Replay](#create-a-replay)
+    - [Return a rich markdown link](#return-a-rich-markdown-link)
+    - [Set a replay title](#set-a-replay-title)
+    - [Set a project to publish to](#set-a-project-to-publish-to)
+    - [Attach the last 20 CLI commands to the replay](#attach-the-last-20-cli-commands-to-the-replay)
+    - [Attach a logfile to the replay](#attach-a-logfile-to-the-replay)
+  - [GitHub CLI](#github-cli)
+    - [Create a github issue with a replay in the description](#create-a-github-issue-with-a-replay-in-the-description)
+    - [Create a github pull request with a replay in the description](#create-a-github-pull-request-with-a-replay-in-the-description)
+    - [Append a 30 second replay to a commit](#append-a-30-second-replay-to-a-commit)
+- [Advanced Usage](#advanced-usage)
+  - [Web](#web)
+    - [Setup](#setup-1)
+    - [HTML Anchor Tag](#html-anchor-tag)
+    - [JS Error Handler](#js-error-handler)
+  - [NodeJS SDK](#nodejs-sdk)
+    - [Setup](#setup-2)
+    - [Create a Replay](#create-a-replay-1)
+    - [Error Handler](#error-handler)
+  - [Ideas](#ideas)
 
 # Examples
 
@@ -91,7 +100,7 @@ To record the output of a command in the Dashcam app (In this example the `ping 
 ping 1.1.1.1 | dashcam pipe
 ```
 
-### Create a Replay
+## Create a Replay
 
 ```sh
 $ dashcam
@@ -112,6 +121,12 @@ Watch [Dashcam - New Replay](https://dashcam.io/replay/123?share=xyz) on Dashcam
 
 ```sh
 $ dashcam -t "My New Title"
+```
+
+### Set a project to publish to
+
+```sh
+$ dashcam -k wef8we72h23012j
 ```
 
 ### Attach the last 20 CLI commands to the replay
