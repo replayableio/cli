@@ -85,7 +85,7 @@ const createClip = async function (options = {}) {
       reject(
         "Dashcam Desktop App did not respond in time. Did you publish a clip?"
       );
-    }, 60000 * 5);
+    }, 60000 * 10);
 
     const replay = {
       title: options.title,
