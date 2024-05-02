@@ -31,6 +31,8 @@ const connectToIpc = function (timeout) {
           )
         );
         reject();
+      } else {
+        console.log(e);
       }
     });
     ipc.of.dashcam.on("disconnect", function () {
@@ -73,6 +75,11 @@ const createClip = async function (options = {}) {
         }
       }
     );
+    
+
+    ipc.of.dashcam.on("error", (e) => {
+      console.log(e);
+    });
 
     setTimeout(() => {
       reject(
@@ -146,9 +153,11 @@ class PersistantDashcamIPC {
         this.onConnected();
     });
     persistantIPC.of.dashcam.on("disconnect", () => {
+      console.log('disconnected')
       this.#isConnected = false;
     });
-    persistantIPC.of.dashcam.on("error", () => {
+    persistantIPC.of.dashcam.on("error", (e) => {
+      console.log(e)
       this.#isConnected = false;
     });
   }
@@ -173,8 +182,6 @@ const addLogsConfig = async (options) => {
 
 module.exports = {
   sendApiKey,
-  createReplay,
-  startInstantReplay,
   createClip,
   addLogsConfig,
   getLogFilePath,
