@@ -17,6 +17,9 @@ const connectToIpc = function (timeout) {
     let timeoutToClean;
     ipc.connectTo("dashcam");
     ipc.of.dashcam.on("connect", () => {
+      console.log(
+        clc.green("Connected to Dashcam!")
+      );
       resolve();
       if (timeoutToClean) clearTimeout(timeoutToClean);
     });
@@ -36,7 +39,7 @@ const connectToIpc = function (timeout) {
       }
     });
     ipc.of.dashcam.on("disconnect", function () {
-      console.log("Disconnected from Dashcam");
+      console.log(clc.red("Disconnected from Dashcam"));
       reject();
     });
     if (timeout && typeof timeout === "number") {
@@ -124,8 +127,11 @@ const sendApiKey = async function (apiKey) {
   return new Promise(async (resolve, reject) => {
     await connectToIpc(5000).catch(reject);
     ipc.of.dashcam.emit("auth", { apiKey });
-    ipc.of.dashcam.on("auth-state", (success) => {
-      if (success) return resolve();
+    ipc.of.dashcam.on("auth-state", ({success, user}) => {
+      if (success) {
+        console.log(clc.green(`Connected as: ${user?.sub}!`));
+        return resolve();
+      }
       console.log(clc.red("Could not authenticate using the ApiKey"));
       reject();
     });
