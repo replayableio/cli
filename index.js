@@ -66,7 +66,6 @@ program
       let result = await lib.createClip({
         title: this.opts().title,
         description,
-        private: this.opts().private,
         md: this.opts().md,
         publish: this.opts().publish,
         capture: !this.opts().replay,
