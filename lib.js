@@ -17,9 +17,9 @@ const connectToIpc = function (timeout) {
     let timeoutToClean;
     ipc.connectTo("dashcam");
     ipc.of.dashcam.on("connect", () => {
-      console.log(
-        clc.green("Connected to Dashcam!")
-      );
+      // console.log(
+      //   clc.green("Connected to Dashcam!")
+      // );
       resolve();
       if (timeoutToClean) clearTimeout(timeoutToClean);
     });
