@@ -159,11 +159,11 @@ class PersistantDashcamIPC {
         this.onConnected();
     });
     persistantIPC.of.dashcam.on("disconnect", () => {
-      console.log('disconnected')
+      // console.log('disconnected')
       this.#isConnected = false;
     });
     persistantIPC.of.dashcam.on("error", (e) => {
-      console.log(e)
+      // console.log(e)
       this.#isConnected = false;
     });
   }
