@@ -78,10 +78,13 @@ const createClip = async function (options = {}) {
         }
       }
     );
-    
 
     ipc.of.dashcam.on("error", (e) => {
       console.log(e);
+    });
+
+    ipc.of.dashcam.on("replay-failed", (errorMessage) => {
+      reject(errorMessage);
     });
 
     setTimeout(() => {
@@ -127,7 +130,7 @@ const sendApiKey = async function (apiKey) {
   return new Promise(async (resolve, reject) => {
     await connectToIpc(5000).catch(reject);
     ipc.of.dashcam.emit("auth", { apiKey });
-    ipc.of.dashcam.on("auth-state", ({success, user}) => {
+    ipc.of.dashcam.on("auth-state", ({ success, user }) => {
       if (success) {
         console.log(clc.green(`Connected as: ${user?.sub}!`));
         return resolve();
