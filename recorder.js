@@ -1,5 +1,5 @@
 const fs = require("fs");
-const pty = require("node-pty-prebuilt-multiarch");
+const pty = require("@homebridge/node-pty-prebuilt-multiarch");
 const process = require("process");
 const find = require("find-process");
 
