@@ -13,8 +13,6 @@ if (module.parent) {
 
 const { program } = require("commander");
 
-let stdin = "";
-
 program
   .name("dashcam")
   .description("Capture the steps to reproduce every bug.")
@@ -44,7 +42,7 @@ program
   )
   .option(
     "-d, --description [text]",
-    "Markdown body. This may also be piped in: `cat README.md | dashcam create`"
+    "Markdown body."
   )
   .option("--md", "Returns code for a rich markdown image link.")
   .option("-r --replay", "Create a replay not capture.")
@@ -59,9 +57,6 @@ program
   .action(async function (str, options) {
     try {
       let description = this.opts().description;
-      if (stdin) {
-        description = stdin;
-      }
 
       let result = await lib.createClip({
         title: this.opts().title,
@@ -160,18 +155,4 @@ program
     }
   });
 
-if (process.stdin.isTTY || process.argv[2] === "pipe") {
-  program.parse(process.argv);
-} else {
-  process.stdin.on("error", function () {});
-  process.stdin.on("readable", function () {
-    var chunk = this.read();
-
-    if (chunk !== null) {
-      stdin += chunk;
-    }
-  });
-  process.stdin.on("end", function () {
-    program.parse(process.argv);
-  });
-}
+program.parse(process.argv);
